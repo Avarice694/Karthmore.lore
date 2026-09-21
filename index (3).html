@@ -1,0 +1,914 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Karthmore</title>
+<meta name="description" content="Arcanepunk fantasy. A city of guilds, glass, and doors that open onto other worlds. The series, the worlds, the peoples, and new dispatches.">
+<meta name="theme-color" content="#15172a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&display=swap" rel="stylesheet">
+<style>
+/* ------------------------------------------------------------------
+   Tokens. These are the default (Dornalis) colors. Each world re-themes
+   the page from its "color" in the content block, so you rarely need to
+   touch this.
+------------------------------------------------------------------- */
+:root{
+  --display:"Marcellus","Trajan Pro","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --body:"Newsreader",Charter,"Iowan Old Style",Georgia,serif;
+  --ink:#15172a; --ink-2:#1d2040; --ink-3:#2a2e55;
+  --bone:#ece5d4; --bone-dim:#b9b3a5;
+  --accent:#f0c078;      /* Soltera gold */
+  --accent-2:#b7b1e8;    /* Nyxara lilac */
+  --line:rgba(236,229,212,.18);
+  --wrap:1120px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ink);color:var(--bone);font:400 1.125rem/1.7 var(--body);transition:background-color .6s ease}
+img{max-width:100%;height:auto}
+a{color:var(--accent);text-underline-offset:.2em}
+a:hover{color:var(--bone)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent-2);outline-offset:3px}
+main:focus{outline:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:1rem;top:-5rem;z-index:60;padding:.6rem 1rem;background:var(--accent);color:var(--ink);border-radius:4px}
+.skip:focus{top:1rem}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 clamp(1.25rem,4vw,2.5rem)}
+
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.15}
+h2{font-size:clamp(1.8rem,3.6vw,2.7rem);margin-bottom:1rem}
+p{margin:0 0 1.1em}
+.prose p{max-width:66ch}
+.lede{font-size:1.3rem;line-height:1.5;max-width:44rem}
+.muted{color:var(--bone-dim)}
+
+/* ---- Header ---- */
+.site-head{background:rgba(21,23,42,.9);background:color-mix(in srgb,var(--ink) 90%,transparent);border-bottom:1px solid var(--line);z-index:30;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+@media(min-width:760px){.site-head{position:sticky;top:0}}
+.head-in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem 2rem;padding-block:.85rem}
+.brand{display:flex;align-items:center;gap:.7rem;font-family:var(--display);font-size:1.35rem;letter-spacing:.03em;color:var(--bone);text-decoration:none}
+.brand svg{width:32px;height:20px;flex:none}
+.site-nav ul{display:flex;flex-wrap:wrap;gap:.1rem 1.6rem;list-style:none;margin:0;padding:0}
+.site-nav a{display:inline-block;padding:.3rem 0;color:var(--bone-dim);text-decoration:none;font-size:1.02rem;border-bottom:2px solid transparent;transition:color .2s ease,border-color .3s ease}
+.site-nav a:hover{color:var(--bone)}
+.site-nav a[aria-current="page"]{color:var(--bone);border-bottom-color:var(--accent)}
+
+/* ---- Buttons ---- */
+.btn{display:inline-block;padding:.75rem 1.5rem;border-radius:4px;border:1.5px solid var(--accent);background:var(--accent);color:#15172a;font-family:var(--display);font-size:1.05rem;letter-spacing:.02em;text-decoration:none;transition:background-color .2s ease,color .2s ease}
+.btn:hover{background:transparent;color:var(--accent)}
+.btn.ghost{background:transparent;color:var(--bone);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--bone);color:var(--bone)}
+.actions{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:2rem}
+
+/* ---- Hero: the skyline and the two moons are the one loud thing ---- */
+.hero{position:relative;overflow:hidden;min-height:min(90vh,880px);display:flex;align-items:flex-start;
+  background:linear-gradient(180deg,#0b0d1e 0%,#171a3a 40%,#33294f 72%,#5b4256 100%)}
+.hero .glow{position:absolute;inset:auto 0 0 0;height:65%;background:radial-gradient(60% 70% at 50% 100%,rgba(240,192,120,.24),transparent 70%)}
+.hero svg.skyline{position:absolute;left:0;bottom:-1px;width:100%;height:62%}
+.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:90px;background:linear-gradient(to top,#15172a,transparent)}
+.hero-copy{position:relative;z-index:2;width:100%;padding-top:clamp(3rem,13vh,8rem);padding-bottom:6rem}
+.hero h1{font-size:clamp(3.6rem,12vw,9.5rem);line-height:.95;letter-spacing:.01em;text-shadow:0 2px 30px rgba(10,10,30,.6)}
+.hero .say{margin:.9rem 0 0;font-style:italic;color:var(--accent);font-size:1.15rem}
+.hero .lede{margin-top:1.4rem;color:var(--bone);text-shadow:0 1px 14px rgba(10,10,30,.8)}
+.moon{position:absolute;border-radius:50%;animation:rise 2.6s cubic-bezier(.2,.7,.2,1) both}
+.nyx{width:clamp(84px,13vw,180px);aspect-ratio:1;top:9%;right:clamp(6%,12vw,16%);
+  background:
+   radial-gradient(circle at 62% 64%,rgba(90,84,150,.55) 0 9%,transparent 10%),
+   radial-gradient(circle at 34% 70%,rgba(90,84,150,.4) 0 6%,transparent 7%),
+   radial-gradient(circle at 70% 30%,rgba(90,84,150,.35) 0 5%,transparent 6%),
+   radial-gradient(circle at 36% 30%,#f4f0ff 0,#c4beee 50%,#8a84c4 100%);
+  box-shadow:0 0 70px 14px rgba(183,177,232,.28)}
+.sol{width:clamp(48px,7vw,96px);aspect-ratio:1;top:27%;right:clamp(22%,30vw,34%);animation-delay:.35s;
+  background:radial-gradient(circle at 36% 30%,#fff3d6 0,#f3c882 55%,#cf9350 100%);
+  box-shadow:0 0 60px 12px rgba(240,192,120,.3)}
+@keyframes rise{from{transform:translateY(60px);opacity:0}to{transform:none;opacity:1}}
+@media(max-width:640px){
+  .hero-copy{padding-top:9rem}
+  .nyx{top:2.2rem;right:12%}
+  .sol{top:3.6rem;right:38%}
+}
+
+/* ---- Sections ---- */
+.section{padding-block:clamp(3.5rem,8vw,6rem)}
+.section + .section{border-top:1px solid var(--line)}
+.split{display:grid;gap:1.5rem clamp(2rem,6vw,5rem);grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+@media(max-width:800px){.split{grid-template-columns:1fr}}
+.page-head{padding-block:clamp(3rem,7vw,5rem) 1.5rem}
+.page-head h1{font-size:clamp(2.5rem,6vw,4.2rem)}
+.page-head .lede{margin-top:1rem}
+.page-body{padding-bottom:clamp(3rem,7vw,5rem)}
+.back{display:inline-block;margin-bottom:1.25rem;color:var(--bone-dim)}
+
+/* ---- Doors: one per plane, moon count shown as pips in the arch ---- */
+.doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:clamp(1rem,3vw,2.25rem);margin:2.5rem 0 0;padding:0;list-style:none}
+@media(max-width:760px){.doors{grid-template-columns:1fr;max-width:22rem}}
+.door{--a:#f0c078;--bg1:#22254a;--bg2:#38335f;
+  position:relative;display:flex;flex-direction:column;height:100%;min-height:420px;padding:2rem 1.5rem 1.7rem;
+  color:var(--bone);text-decoration:none;text-align:center;
+  border:1.5px solid var(--a);border-radius:999px 999px 8px 8px;
+  background:radial-gradient(70% 45% at 50% 100%,color-mix(in srgb,var(--a) 34%,transparent),transparent 70%),linear-gradient(180deg,var(--bg1),var(--bg2));
+  transition:box-shadow .3s ease}
+.door::before{content:"";position:absolute;inset:10px;border:1px solid color-mix(in srgb,var(--a) 45%,transparent);border-radius:999px 999px 4px 4px;pointer-events:none}
+.door:hover{color:var(--bone);box-shadow:0 0 44px -6px var(--a)}
+.door .pips{display:flex;justify-content:center;gap:.65rem;margin-bottom:auto;padding-top:3.4rem}
+.door .pips i{display:block;width:13px;height:13px;border-radius:50%;background:var(--a);box-shadow:0 0 14px 2px color-mix(in srgb,var(--a) 60%,transparent)}
+.door h3{font-size:1.7rem;margin:1.5rem 0 .1rem}
+.door .city{font-style:italic;color:var(--a);margin:0 0 .15rem}
+.door .count{font-size:.95rem;color:var(--bone-dim);margin:0 0 .8rem}
+.door .line{font-size:1rem;line-height:1.5;margin:0}
+
+/* ---- Series ---- */
+.series-item{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:1rem clamp(2rem,6vw,5rem);padding-block:2.5rem;border-top:1px solid var(--line)}
+@media(max-width:800px){.series-item{grid-template-columns:1fr}}
+.series-item h2{margin:0}
+.series-item .kind{margin:.3rem 0 0;font-style:italic;color:var(--accent)}
+.status{display:inline-block;margin-top:.9rem;padding:.1rem .8rem;border:1px solid var(--line);border-radius:999px;font-size:.95rem;color:var(--bone-dim)}
+.series-item img{display:block;margin-bottom:1.25rem;max-width:220px;border-radius:3px}
+
+/* ---- Cast ---- */
+.cast{margin:1.5rem 0 0;padding:0;list-style:none}
+.cast li{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:.4rem 3rem;padding:1.5rem 0;border-top:1px solid var(--line)}
+@media(max-width:700px){.cast li{grid-template-columns:1fr}}
+.cast .who{font-family:var(--display);font-size:1.5rem;line-height:1.2}
+.cast .kind{display:block;margin-top:.3rem;font-family:var(--body);font-style:italic;font-size:1rem;color:var(--accent)}
+.cast p{margin:0;max-width:60ch}
+.cast p + p{margin-top:.8em}
+
+/* ---- Worlds ---- */
+.search{display:block;width:100%;max-width:34rem;margin-top:1.75rem;padding:.8rem 1rem;font:inherit;color:var(--bone);background:var(--ink-2);border:1px solid var(--line);border-radius:6px}
+.search::placeholder{color:var(--bone-dim)}
+.results{list-style:none;margin:1rem 0 0;padding:0;max-width:46rem}
+.results li{padding:.9rem 0;border-top:1px solid var(--line)}
+.results a{font-family:var(--display);font-size:1.2rem;text-decoration:none}
+.results .where{margin-left:.6rem;font-style:italic;font-size:.95rem;color:var(--bone-dim)}
+.results p{margin:.2rem 0 0;font-size:1rem;color:var(--bone-dim)}
+.ref-link{display:block;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--line)}
+.plane-facts{margin:1.25rem 0 0;color:var(--bone-dim)}
+.index{display:flex;flex-wrap:wrap;gap:.35rem 1.4rem;margin:1.5rem 0 0;padding:0;list-style:none}
+.cat{font-size:1.3rem;color:var(--accent);margin:3rem 0 .25rem}
+.entry{max-width:70ch;padding:1.75rem 0 .5rem;border-top:1px solid var(--line);scroll-margin-top:5rem}
+.entry h3{font-size:1.55rem;margin-bottom:.5rem}
+.entry .say{margin-left:.7rem;font-family:var(--body);font-style:italic;font-size:1rem;color:var(--accent)}
+.entry ul{margin:0 0 1.1em;padding-left:1.2rem}
+.entry.flash{animation:flash 2.4s ease-out}
+@keyframes flash{from{background:color-mix(in srgb,var(--accent) 22%,transparent)}to{background:transparent}}
+
+.table-wrap{overflow-x:auto;margin-top:1.5rem}
+.cal{width:100%;min-width:640px;border-collapse:collapse}
+.cal th,.cal td{padding:.9rem 1rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+.cal thead th{font-family:var(--display);font-weight:400;font-size:1.3rem;border-bottom:2px solid var(--pc)}
+.cal tbody th{width:10rem;font-weight:400;font-style:italic;color:var(--bone-dim)}
+.say-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2rem;margin:1.5rem 0 0;padding:0;list-style:none}
+.say-list li{padding-top:1rem;border-top:1px solid var(--line)}
+.say-list .name{display:block;font-family:var(--display);font-size:2rem;line-height:1.2}
+.say-list .how{display:block;margin-top:.2rem;font-style:italic;font-size:1.2rem;color:var(--accent)}
+
+/* ---- Registry: reads as a notice posted by the city ---- */
+.notice{display:flex;align-items:center;gap:clamp(1rem,3vw,2rem);padding:clamp(1.25rem,3vw,2rem);border:1px solid var(--accent);box-shadow:inset 0 0 0 6px var(--ink),inset 0 0 0 7px var(--line)}
+.notice .seal{flex:none;width:clamp(64px,10vw,96px);height:auto}
+.notice .issuer{margin:0 0 .3rem;font-style:italic;color:var(--accent)}
+.notice h1{font-size:clamp(2rem,5vw,3.2rem)}
+.notice .filed{margin:.6rem 0 0;color:var(--bone-dim)}
+.notice-intro{margin-top:2rem}
+@media(max-width:560px){.notice{flex-direction:column;align-items:flex-start}}
+.cast .status-line{margin:0 0 .6rem}
+.cast .status{margin-top:0}
+.realm{margin:2.25rem 0 0;font-size:1.3rem}
+.sealed{margin-top:4rem;padding-top:2rem;border-top:1px solid var(--line)}
+.sealed h2{font-size:1.8rem}
+
+/* ---- Dispatches ---- */
+.post-list{list-style:none;margin:1.5rem 0 0;padding:0}
+.post-list li{max-width:46rem;padding:1.75rem 0;border-top:1px solid var(--line)}
+.post-list h2,.post-list h3{font-size:1.7rem;margin:.15rem 0 .5rem}
+.post-list h2 a,.post-list h3 a{color:var(--bone);text-decoration:none}
+.post-list h2 a:hover,.post-list h3 a:hover{color:var(--accent)}
+.post-list p{margin:0}
+time,.meta{font-style:italic;font-size:1rem;color:var(--bone-dim)}
+.post-body{margin-top:2rem}
+
+/* ---- Page transitions and the door opening ---- */
+main{transition:opacity .16s ease}
+main.leaving{opacity:0}
+main.entering .page-head,main.entering .page-body,main.entering .section{animation:pageIn .55s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i,0) * 80ms)}
+main.entering .hero{animation:heroIn .9s ease both}
+@keyframes pageIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes heroIn{from{opacity:0}to{opacity:1}}
+.door.opening{box-shadow:0 0 70px 6px var(--a)}
+.door.opening .pips i{transform:scale(1.7);transition:transform .5s ease}
+.portal{position:fixed;inset:0;z-index:100;
+  background:radial-gradient(45% 55% at 50% 55%,color-mix(in srgb,var(--a) 75%,#fff 12%) 0,color-mix(in srgb,var(--a) 28%,transparent) 55%,transparent 85%),linear-gradient(180deg,var(--bg1),var(--bg2))}
+
+/* ---- Footer ---- */
+.site-foot{border-top:1px solid var(--line);padding-block:2.5rem;font-size:1rem;color:var(--bone-dim)}
+.site-foot ul{display:flex;flex-wrap:wrap;gap:.3rem 1.5rem;list-style:none;margin:.75rem 0 0;padding:0}
+.site-foot p{margin:0}
+.site-foot .build{margin-top:.75rem;font-size:.85rem;opacity:.7}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body data-plane="dornalis">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap head-in">
+    <a class="brand" href="#/" id="brand"></a>
+    <nav class="site-nav" aria-label="Main"><ul id="nav"></ul></nav>
+  </div>
+</header>
+<main id="main" tabindex="-1"></main>
+<footer class="site-foot"><div class="wrap" id="foot"></div></footer>
+<noscript><div class="wrap"><p>This site needs JavaScript turned on to show its pages.</p></div></noscript>
+
+<script>
+/* ==== CONTENT START ====================================================
+   Everything you'll want to edit lives in this block. Change the text
+   between the quotes, save, and re-upload. Anything in [square brackets]
+   is a placeholder waiting for you.
+======================================================================== */
+const SITE = {
+  title: "Karthmore",                       // Big title on the home page. Swap in your series title when you have one.
+  pronunciation: "Car-th-more",
+  author: "[Author name]",
+  build: "v3, 21 Sep 2026",                 // Shown in the footer so you can tell which version is live. Delete this line and the footer note once it is working.
+  tagline: "Arcanepunk fantasy. A city of guilds, glass, and doors that open onto other worlds.",
+  bio: "[Two or three sentences about you: who you are, what you write, and what you're working on.]",
+  links: [
+    // { label: "Newsletter", href: "https://example.com" },
+    // { label: "Instagram",  href: "https://instagram.com/yourname" },
+  ],
+
+  nav: [
+    { label: "Series",     href: "#/series",     r: "series" },
+    { label: "Worlds",     href: "#/worlds",     r: "worlds" },
+    { label: "Peoples",    href: "#/peoples",    r: "peoples" },
+    { label: "Characters", href: "#/characters", r: "characters" },
+    { label: "Dispatches", href: "#/dispatches", r: "dispatches" },
+    { label: "About",      href: "#/about",      r: "about" }
+  ],
+
+  premise: [
+    "Karthmore is a city that runs on paper, glass, and leverage. It is an arcanepunk metropolis in the Korrathis Imperium, on the plane of Dornalis. Its guilds have their own law, its code runs to forty-five articles, and a rebellion is slipping in through doors drawn in chalk.",
+    "Evelyn Reed is an assistant at the Glass-Binders Guild, and she is about to be pulled into a rebellion she never applied for. Beyond the city, other worlds wait behind Velo-Script doors: elvish, solarpunk Alathia and dwarvish, steampunk Krag Doss Ner. Each keeps its own moons and its own calendar, and none of them agrees on what a city is for."
+  ],
+
+  series: [
+    {
+      title: "Evelyn Reed",
+      kind: "Primary series",
+      status: "In drafting",
+      cover: "",   // optional: path to a cover image, e.g. "images/evelyn-cover.jpg"
+      text: [
+        "Evelyn Reed is a human assistant at the Glass-Binders Guild in Karthmore. Her days were ordinary until a political rebellion reached the city and drew her in.",
+        "Expect guild politics, a charismatic rebel, and doors that do not stay where you left them."
+      ]
+    },
+    {
+      title: "Corven Cain",
+      kind: "Companion series",
+      status: "Planned",
+      cover: "",
+      text: [
+        "Corven Cain is a 113-year-old vampire and a war veteran. His House rejected him, and he answered by building a criminal empire in Karthmore.",
+        "You will catch two brief glimpses of him in Evelyn's story first."
+      ]
+    }
+  ],
+
+  // ADDING A NEW WORLD: copy the commented example below, paste it after the last world
+  // (keep the comma between blocks), remove the // marks, and change the words.
+  // "color" is all you need for the look: the door and the page theme are built from it.
+  // Pick a bright or light color so text stays readable. "moons" is a number.
+  // "key" must be lowercase with no spaces. Give the world's lore entries the same key in
+  // their plane: "..." field.
+  planes: [
+    {
+      key: "dornalis", name: "Dornalis", city: "Karthmore", pron: "Car-th-more", moons: 2,
+      moonNames: "Nyxara and Soltera",
+      line: "An arcanepunk metropolis in the Korrathis Imperium. Guilds, law, and a rebellion.",
+      intro: "The plane where the series begins. Home to Karthmore, the Korrathis Imperium, and the vampire continent of Ashenmoor.",
+      color: "#f0c078",
+      theme: { ink: "#15172a", ink2: "#1d2040", ink3: "#2a2e55", accent: "#f0c078", accent2: "#b7b1e8" },
+      vars: { a: "#f0c078", bg1: "#22254a", bg2: "#38335f" }
+    },
+    {
+      key: "alathia", name: "Alathia", city: "Sylvaren", pron: "Sil-VAR-en", moons: 5,
+      moonNames: "Thalessiel, Vaelora, Miraeth, Fenlyr, and Aurelith",
+      line: "An elvish plane with a solarpunk city.",
+      intro: "An elvish plane, reached only through a Velo-Script door.",
+      color: "#a4d99e",
+      theme: { ink: "#101f1b", ink2: "#173029", ink3: "#20443a", accent: "#a4d99e", accent2: "#ecd98f" },
+      vars: { a: "#a4d99e", bg1: "#14302a", bg2: "#21503f" }
+    },
+    {
+      key: "krag", name: "Krag Doss Ner", city: "Khul-Dar-Ness", pron: "Khuul-DAR-ness", moons: 1,
+      moonNames: "Bronnvar",
+      line: "A dwarvish plane with a steampunk city.",
+      intro: "A dwarvish plane, reached only through a Velo-Script door.",
+      color: "#e08a5f",
+      theme: { ink: "#1c1613", ink2: "#2a201a", ink3: "#3b2c22", accent: "#e08a5f", accent2: "#aeb9c2" },
+      vars: { a: "#e08a5f", bg1: "#2b201a", bg2: "#46332a" }
+    }
+    // ,{
+    //   key: "spirit", name: "The Spirit Realm", city: "City name", pron: "how to say it", moons: 1,
+    //   moonNames: "Moon name",
+    //   line: "One sentence shown on the door.",
+    //   intro: "One or two sentences at the top of the world's page.",
+    //   color: "#c9a0ff"
+    // }
+  ],
+
+  calendars: [
+    { plane: "dornalis", label: "Korrathis",     color: "#f0c078", moons: "Nyxara and Soltera", week: "7 days", month: "35 days", months: "10", year: "350 days", seasons: "Five" },
+    { plane: "alathia",  label: "Alathia",       color: "#a4d99e", moons: "Thalessiel, Vaelora, Miraeth, Fenlyr, Aurelith", week: "9 days", month: "36 days", months: "8", year: "288 days", seasons: "Four, of uneven length" },
+    { plane: "krag",     label: "Krag Doss Ner", color: "#e08a5f", moons: "Bronnvar", week: "5 days", month: "35 days", months: "12", year: "420 days", seasons: "Four" }
+  ],
+  calendarNotes: [
+    "Krag Doss Ner names its months after minerals, and its moon Bronnvar marks four seasonal festivals.",
+    "The Dawns, the universal dating system, follow Korrathis's calendar by treaty."
+  ],
+
+  lore: [
+    // ---------------- Dornalis ----------------
+    { id: "dornalis", plane: "dornalis", cat: "Lands", name: "Dornalis",
+      text: ["Dornalis is a plane: a separate reality with its own universe, its own physics, its own moons, and its own calendar. It holds about ten landmasses. The books have charted only a few of them."] },
+    { id: "korrathis", plane: "dornalis", cat: "Lands", name: "Korrathis",
+      text: ["The empire's continent. The Korrathis Imperium rules from here, and an independent nation shares the landmass with it."] },
+    { id: "karthmore", plane: "dornalis", cat: "Lands", name: "Karthmore", pron: "Car-th-more",
+      text: [
+        "An arcanepunk metropolis inside the Korrathis Imperium, and the setting of the series. Evelyn Reed works here, at the Glass-Binders Guild.",
+        "Rebels reach the city through chalk doors. Its laws fill forty-five articles, and at least one character can quote them word for word."
+      ] },
+    { id: "ashenmoor", plane: "dornalis", cat: "Lands", name: "Ashenmoor",
+      text: ["The vampire continent. It shares its origin with Korrathis: the Sundering once split a single supercontinent into the two lands."] },
+    { id: "sundering", plane: "dornalis", cat: "Lands", name: "The Sundering",
+      text: ["A prehistoric event that split a supercontinent into two: the continent of Korrathis and the continent of Ashenmoor."] },
+    { id: "thessivane", plane: "dornalis", cat: "Lands", name: "Thessivane",
+      text: [
+        "Beautiful name, dangerous reality. Korrathis knows the continent exists and has neither explored nor conquered it.",
+        "Dense forest fills the centre and reaches parts of the coast. Open plains and clearings break it up, hot springs lie in the northwest, and a single significant mountain range rises from the largely flat land."
+      ] },
+    { id: "far-lands", plane: "dornalis", cat: "Lands", name: "Beyond the charts",
+      text: [
+        "Kalûdesh is a desert continent of nomadic peoples.",
+        "Oluven is an island chain. Each small island holds a single settlement, boats and bridges link them, and the large central island holds the capital.",
+        "Ercanthis is a civilization as advanced as Korrathis, or more so. Its open grasslands hold only three cities: the City of Law, which rules; the City of Order, which handles commerce and work; and the City of Guilds, where guilds and gangs mingle in chaos.",
+        "About four more landmasses have no name yet."
+      ] },
+
+    { id: "rebellion", plane: "dornalis", cat: "Powers and peoples", name: "The Rebellion",
+      text: ["A movement that slips into Karthmore through chalk doors. Its ranks run commander, captain, soldier. Its public leader is Remus Wolfgar Mathews."] },
+    { id: "named-powers", plane: "dornalis", cat: "Powers and peoples", name: "Other names to know",
+      text: ["The Greek Olympian Syndicate. The Norse Aesir and Vanir. The Aztec Obsidian Cartel. The Order of the Hunt, a cult that hunts angels."] },
+    { id: "witches", plane: "dornalis", cat: "Powers and peoples", name: "Witches and Warlocks",
+      text: ["Two races with battle-mage and healer histories. Witches wear deep plum-purple robes stitched with silver sigils."] },
+
+    { id: "velo-script", plane: "dornalis", cat: "Ideas", name: "Velo-Script doors",
+      text: ["Magical doors between planes. They do not carry you across space. They move you from one reality into another. Alathia and Krag Doss Ner can be reached no other way."] },
+    { id: "law", plane: "dornalis", cat: "Ideas", name: "Karthmore's law code",
+      text: ["Forty-five articles, in formal legal-citation style, across six titles:"],
+      list: ["Governance", "Guild Law", "Property", "Citizenship", "Commerce", "Criminal Law"] },
+    { id: "dawns", plane: "dornalis", cat: "Ideas", name: "The Dawns",
+      text: ["The universal dating system. It follows Korrathis's calendar by treaty."] },
+
+    // ---------------- Alathia ----------------
+    { id: "alathia", plane: "alathia", cat: "Places", name: "Alathia",
+      text: [
+        "An elvish plane with five moons: Thalessiel, Vaelora, Miraeth, Fenlyr, and Aurelith. Its great city is Sylvaren, a solarpunk city.",
+        "You reach Alathia only through a Velo-Script door."
+      ] },
+    { id: "sylvaren", plane: "alathia", cat: "Places", name: "Sylvaren", pron: "Sil-VAR-en",
+      text: ["The solarpunk city of Alathia."] },
+    { id: "the-gift", plane: "alathia", cat: "Ideas", name: "The Gift",
+      text: ["An elvish way of travelling. It reaches only places the traveller has already seen, and only a spiritually pure traveller can use it."] },
+
+    // ---------------- Krag Doss Ner ----------------
+    { id: "krag-doss-ner", plane: "krag", cat: "Places", name: "Krag Doss Ner",
+      text: [
+        "A dwarvish plane with a single moon, Bronnvar. Its great city is Khul-Dar-Ness, a steampunk city.",
+        "You reach Krag Doss Ner only through a Velo-Script door."
+      ] },
+    { id: "khul-dar-ness", plane: "krag", cat: "Places", name: "Khul-Dar-Ness", pron: "Khuul-DAR-ness",
+      text: ["The steampunk city of Krag Doss Ner."] }
+  ],
+
+  cast: [
+    { name: "Evelyn Reed", kind: "Human", text: "A Glass-Binders Guild assistant who did not plan on becoming interesting to a rebellion. Protagonist of the primary series." },
+    { name: "Corven Cain", kind: "Vampire", text: "A 113-year-old war veteran and the unclaimed Governor of Ravenscourt. He has his own companion series, and he will happily cite the relevant law." },
+    { name: "Thessaly Ravenscourt", kind: "Pureblood vampire", text: "Potentate of House Ravenscourt. She has held both the Governor's seat and the Potentate's, and she will fight politically and physically to keep them." },
+    { name: "Lyra", kind: "Drow-kin", text: "Owns a coffee shop in the Warrens and is Evelyn's close companion." },
+    { name: "Remus Wolfgar Mathews", kind: "", text: "The charismatic public leader of the Rebellion. He gives a very good speech." },
+    { name: "Verin Thorn", kind: "Shifter", text: "A war buddy turned rival gang leader." },
+    { name: "Moriel Hollowyn", kind: "Half-Drow, half-Witch", text: "An apothecary whose shop sits on contested gang territory, which is hard on business and harder on sleep." }
+  ],
+
+  // The Registry page is written as a public notice from the city itself.
+  registry: {
+    issuer: "The City of Karthmore",
+    title: "Registry of Peoples",
+    posted: "Posted for the information of residents and new arrivals.",
+    intro: [
+      "Karthmore recognizes many peoples. This notice lists them, in no order of importance, along with what the city holds on file for each.",
+      "Where a file is incomplete, the entry says so. The city does not guess."
+    ],
+    // ADDING OR EXPANDING A PEOPLE: copy an entry, paste it after the last one (keep the comma),
+    // and change the words. "text" can be one sentence in quotes, or several paragraphs
+    // written as ["Paragraph one.", "Paragraph two."]. "status" can say anything you like.
+    entries: [
+      { name: "Humans", origin: "", status: "Recognized",
+        text: "Humans are recognized residents and hold guild posts, including at the Glass-Binders Guild. The file is short, on the theory that residents know one when they see one." },
+      { name: "Vampires", origin: "Ashenmoor", status: "Recognized",
+        text: "Vampires are recognized residents. They organize into Houses, each led by a Potentate, and they record pureblood lineage with great care. Their homeland is the continent of Ashenmoor." },
+      { name: "Drow and Drow-kin", origin: "", status: "Recognized",
+        text: "Drow-kin are recognized, as are residents of mixed descent, such as half-Drow. One Drow-kin keeps a coffee shop in the Warrens. The city notes this without comment." },
+      { name: "Shifters", origin: "", status: "Recognized",
+        text: "Shifters are recognized residents, and some have served in the wars." },
+      { name: "Witches and Warlocks", origin: "", status: "Recognized",
+        text: "Witches and Warlocks are recognized as peoples with long histories as battle mages and healers. Witches are known by their deep plum-purple robes, stitched with silver sigils." },
+      { name: "Elves", origin: "Alathia", status: "Recognized",
+        text: "Elves come from Alathia, a plane with five moons and a solarpunk city named Sylvaren. Alathia can be reached only by Velo-Script door. Elves also hold the Gift, a way of travelling with strict limits: only to places the traveller has seen, and only if the traveller is spiritually pure." },
+      { name: "Dwarves", origin: "Krag Doss Ner", status: "Recognized",
+        text: "Dwarves come from Krag Doss Ner, a plane with one moon, Bronnvar, and a steampunk city named Khul-Dar-Ness. It can be reached only by Velo-Script door." }
+    ],
+    review: {
+      heading: "Files under review",
+      intro: "The city holds these names but not yet the files behind them. They are listed so that nobody can say they were never mentioned.",
+      groups: [
+        { realm: "The Spirit Realm (working name)", peoples: ["Kitsune", "Tengu", "Oni", "Kappa", "Tanuki", "Changelings"] },
+        { realm: "The Outer Realm", peoples: ["Angels", "Demons", "Devils", "Jinn", "Nephilim", "Valravn", "Primordials"] },
+        { realm: "The Primal and Wild Realm", peoples: ["Satyrs", "Fawns", "Dryads", "Nymphs", "Centaurs", "Lycans", "Minotaurs", "Selkies"] }
+      ]
+    }
+  },
+
+  sealed: "Three further realms appear in the city's records and remain closed to visitors: the Spirit Realm, the Outer Realm, and the Primal and Wild Realm. Their files are under review.",
+
+  posts: [
+    { slug: "welcome", title: "The doors are open", date: "2026-09-21",
+      summary: "What the city keeps on file here, and where to start.",
+      body: [
+        "Karthmore has a home on the web. This is where the city keeps its files: the series, the worlds behind the doors, the people registered to live there, and dispatches like this one.",
+        "New pages will turn up as the world gets written down. Some entries are short on purpose. The city keeps its secrets, and so do I."
+      ] },
+    { slug: "three-ways-to-count-a-year", title: "Three worlds, three ways to count a year", date: "2026-09-20",
+      summary: "Two moons, five moons, one moon: how each world keeps time.",
+      body: [
+        "Every world within Karthmore's reach counts time differently, and none of them will concede the point.",
+        "Korrathis keeps a 350-day year: ten months of 35 days, seven-day weeks, five seasons, and two moons, Nyxara and Soltera. By treaty, the rest of the world dates its history by this calendar and calls the count the Dawns.",
+        "Alathia keeps stranger time. Five moons hang in its sky: Thalessiel, Vaelora, Miraeth, Fenlyr, and Aurelith. Its year holds eight months of 36 days, so 288 days in all, and its four seasons are not the same length.",
+        "Krag Doss Ner runs the longest year: 420 days, twelve months of 35 days, five-day weeks, and four seasons. Its one moon, Bronnvar, marks four seasonal festivals, and its months are named for minerals.",
+        "The full comparison sits on the calendar page under Worlds."
+      ] }
+  ]
+};
+/* ==== CONTENT END ==================================================== */
+
+/* ------------------------------------------------------------------
+   Everything below runs the site. You shouldn't need to edit it.
+------------------------------------------------------------------- */
+const $main = document.getElementById('main');
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const paras = a => a.map(p => `<p>${esc(p)}</p>`).join('');
+const planeBy = k => SITE.planes.find(p => p.key === k);
+const asArr = x => Array.isArray(x) ? x : [x];
+
+/* ---- World themes: built from each world's "color" unless it supplies its own ---- */
+function hexToHue(hex){
+  const m = /^#?([0-9a-f]{6})$/i.exec(hex || ''); if (!m) return 40;
+  const n = parseInt(m[1], 16), r = (n >> 16 & 255) / 255, g = (n >> 8 & 255) / 255, b = (n & 255) / 255;
+  const mx = Math.max(r, g, b), d = mx - Math.min(r, g, b); if (!d) return 40;
+  const h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  return Math.round((h * 60 + 360) % 360);
+}
+const hsl = (h, s, l) => `hsl(${h} ${s}% ${l}%)`;
+function planeTheme(p){
+  const v = p.vars || {}, t = p.theme || {}, base = p.color || v.a || '#f0c078', h = hexToHue(base);
+  return {
+    door: { a: v.a || base, bg1: v.bg1 || hsl(h, 35, 14), bg2: v.bg2 || hsl(h, 35, 24) },
+    page: { ink: t.ink || hsl(h, 30, 8), ink2: t.ink2 || hsl(h, 28, 12), ink3: t.ink3 || hsl(h, 26, 18),
+            accent: t.accent || base, accent2: t.accent2 || hsl((h + 45) % 360, 55, 78) }
+  };
+}
+const planeAccent = k => { const p = planeBy(k); return p ? planeTheme(p).door.a : '#f0c078'; };
+function applyTheme(key){
+  const p = planeBy(key), st = document.body.style;
+  const map = { '--ink': 'ink', '--ink-2': 'ink2', '--ink-3': 'ink3', '--accent': 'accent', '--accent-2': 'accent2' };
+  Object.keys(map).forEach(k => p ? st.setProperty(k, planeTheme(p).page[map[k]]) : st.removeProperty(k));
+}
+const moonWord = n => ({1:'One moon',2:'Two moons',3:'Three moons',4:'Four moons',5:'Five moons'}[n] || n + ' moons');
+const fmtDate = d => new Date(d + 'T00:00:00Z').toLocaleDateString('en-US', {timeZone:'UTC', year:'numeric', month:'long', day:'numeric'});
+const postsSorted = () => SITE.posts.slice().sort((a, b) => b.date.localeCompare(a.date));
+
+/* ---- Skyline: generated once from a fixed seed so it never changes ---- */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function skyline(){
+  const rnd = mulberry32(1731), R = (a, b) => a + rnd() * (b - a);
+  const W = 1600, H = 620, f = n => n.toFixed(1);
+  const layers = [
+    { fill:'#34305a', minH:120, maxH:280, minW:60, maxW:130, win:0 },
+    { fill:'#242247', minH:150, maxH:340, minW:50, maxW:120, win:.05 },
+    { fill:'#15162f', minH:110, maxH:400, minW:44, maxW:110, win:.17 }
+  ];
+  let out = '';
+  layers.forEach(L => {
+    let x = -30, body = '', lights = '';
+    while (x < W + 30) {
+      const w = R(L.minW, L.maxW), h = R(L.minH, L.maxH), top = H - h, kind = rnd();
+      body += `<rect x="${f(x)}" y="${f(top)}" width="${f(w)}" height="${f(h)}"/>`;
+      if (kind < .25) {
+        const sh = R(50, 130);
+        body += `<polygon points="${f(x+w*.18)},${f(top)} ${f(x+w*.5)},${f(top-sh)} ${f(x+w*.82)},${f(top)}"/>`;
+      } else if (kind < .42) {
+        body += `<ellipse cx="${f(x+w/2)}" cy="${f(top)}" rx="${f(w*.42)}" ry="${f(R(22,46))}"/>`;
+      } else if (kind < .6) {
+        body += `<rect x="${f(x+w*.2)}" y="${f(top-R(30,70))}" width="${f(w*.6)}" height="90"/>`;
+      } else if (kind < .75) {
+        const cw = R(8, 14), ch = R(50, 120);
+        body += `<rect x="${f(x+w*.65)}" y="${f(top-ch)}" width="${f(cw)}" height="${f(ch+2)}"/>`;
+        body += `<rect x="${f(x+w*.3)}" y="${f(top-ch*.6)}" width="${f(cw*.8)}" height="${f(ch*.6+2)}"/>`;
+      }
+      if (L.win) {
+        const cols = Math.floor((w - 16) / 16), rows = Math.floor((h - 24) / 22);
+        for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+          if (rnd() < L.win) {
+            const col = rnd() < .85 ? '#f0c078' : '#b7b1e8';
+            lights += `<rect x="${f(x+8+c*16)}" y="${f(top+14+r*22)}" width="5" height="8" fill="${col}" opacity="${f(R(.5,1))}"/>`;
+          }
+        }
+      }
+      x += w * R(.6, 1);
+    }
+    out += `<g fill="${L.fill}">${body}</g>${lights}`;
+  });
+  return `<svg class="skyline" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">${out}</svg>`;
+}
+
+/* ---- Views ---- */
+function doorsHTML(){
+  return `<ul class="doors">${SITE.planes.map(p => { const d = planeTheme(p).door; return `
+    <li><a class="door" href="#/worlds/${p.key}" style="--a:${d.a};--bg1:${d.bg1};--bg2:${d.bg2}">
+      <span class="pips" aria-hidden="true">${'<i></i>'.repeat(p.moons)}</span>
+      <h3>${esc(p.name)}</h3>
+      <p class="city">${esc(p.city)}</p>
+      <p class="count">${moonWord(p.moons)}</p>
+      <p class="line">${esc(p.line)}</p>
+    </a></li>`; }).join('')}</ul>`;
+}
+
+const views = {
+  home(){
+    const latest = postsSorted()[0];
+    return { title: '', plane: 'dornalis', html: `
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="glow" aria-hidden="true"></div>
+        <div class="moon nyx" aria-hidden="true"></div>
+        <div class="moon sol" aria-hidden="true"></div>
+        ${skyline()}
+        <div class="wrap hero-copy">
+          <h1 id="hero-title">${esc(SITE.title)}</h1>
+          <p class="say">${esc(SITE.pronunciation)}</p>
+          <p class="lede">${esc(SITE.tagline)}</p>
+          <div class="actions">
+            <a class="btn" href="#/series">Meet the series</a>
+            <a class="btn ghost" href="#/worlds">Explore the worlds</a>
+          </div>
+        </div>
+      </section>
+      <section class="section"><div class="wrap split">
+        <h2>A city on the plane of Dornalis</h2>
+        <div class="prose">${paras(SITE.premise)}</div>
+      </div></section>
+      <section class="section"><div class="wrap">
+        <h2>Three worlds, three doors</h2>
+        <p class="lede muted">Every world keeps its own moons and its own calendar. Pick a door.</p>
+        ${doorsHTML()}
+      </div></section>
+      ${latest ? `<section class="section"><div class="wrap">
+        <h2>Latest dispatch</h2>
+        <ul class="post-list"><li>
+          <time datetime="${latest.date}">${fmtDate(latest.date)}</time>
+          <h3><a href="#/dispatches/${latest.slug}">${esc(latest.title)}</a></h3>
+          <p>${esc(latest.summary)}</p>
+        </li></ul>
+        <p><a href="#/dispatches">All dispatches</a></p>
+      </div></section>` : ''}`};
+  },
+
+  series(){
+    return { title: 'The series', plane: 'dornalis', html: `
+      <div class="wrap">
+        <div class="page-head"><h1>The series</h1>
+          <p class="lede">Two series, one city. Start with Evelyn Reed; Corven Cain's story grows out of the same streets.</p></div>
+        <div class="page-body">${SITE.series.map(s => `
+          <article class="series-item">
+            <div>
+              ${s.cover ? `<img src="${esc(s.cover)}" alt="Cover of ${esc(s.title)}">` : ''}
+              <h2>${esc(s.title)}</h2>
+              <p class="kind">${esc(s.kind)}</p>
+              <span class="status">${esc(s.status)}</span>
+            </div>
+            <div class="prose">${paras(s.text)}</div>
+          </article>`).join('')}
+        </div>
+      </div>`};
+  },
+
+  worlds(parts){
+    const [key, entry] = parts;
+    if (key === 'reference') return views.reference();
+    const plane = key && planeBy(key);
+    if (!plane) return views.worldsHome();
+    const entries = SITE.lore.filter(e => e.plane === plane.key);
+    const cats = [...new Set(entries.map(e => e.cat))];
+    return { title: plane.name, plane: plane.key, entry, html: `
+      <div class="wrap">
+        <div class="page-head">
+          <a class="back" href="#/worlds">Back to all worlds</a>
+          <h1>${esc(plane.name)}</h1>
+          <p class="lede">${esc(plane.intro)}</p>
+          <p class="plane-facts">${moonWord(plane.moons)}: ${esc(plane.moonNames)}. <a href="#/worlds/reference">Compare the calendars.</a></p>
+          <ul class="index" aria-label="Entries on this page">${entries.map(e => `<li><a href="#/worlds/${plane.key}/${e.id}">${esc(e.name)}</a></li>`).join('')}</ul>
+        </div>
+        <div class="page-body">${cats.map(c => `
+          <h2 class="cat">${esc(c)}</h2>
+          ${entries.filter(e => e.cat === c).map(e => `
+            <article class="entry" id="e-${e.id}">
+              <h3>${esc(e.name)}${e.pron ? `<span class="say">${esc(e.pron)}</span>` : ''}</h3>
+              ${paras(e.text)}
+              ${e.list ? `<ul>${e.list.map(i => `<li>${esc(i)}</li>`).join('')}</ul>` : ''}
+            </article>`).join('')}`).join('')}
+        </div>
+      </div>`};
+  },
+
+  worldsHome(){
+    return { title: 'Worlds', plane: 'dornalis', html: `
+      <div class="wrap">
+        <div class="page-head"><h1>Worlds</h1>
+          <p class="lede">Karthmore is one city on one plane, and the city has more doors than it advertises. Pick one, or search for a name.</p>
+          <label class="sr" for="q">Search the worlds</label>
+          <input id="q" class="search" type="search" placeholder="Search a place, a moon, or a name" autocomplete="off">
+          <ul id="results" class="results" aria-live="polite"></ul>
+        </div>
+        <div class="page-body">
+          ${doorsHTML()}
+          <div class="prose sealed"><h2>Sealed files</h2><p>${esc(SITE.sealed)}</p>
+            <p><a href="#/peoples">See who is known to live there</a></p></div>
+          <a class="ref-link" href="#/worlds/reference">Calendars and pronunciation guide</a>
+        </div>
+      </div>`,
+      after(){
+        const q = document.getElementById('q'), out = document.getElementById('results');
+        const pool = SITE.lore.map(e => ({
+            name: e.name, href: `#/worlds/${e.plane}/${e.id}`, where: planeBy(e.plane).name,
+            hay: [e.name, ...e.text, ...(e.list || [])].join(' '), snip: e.text[0]
+          })).concat(SITE.cast.map(c => ({
+            name: c.name, href: '#/characters', where: 'Characters',
+            hay: [c.name, c.kind, c.text].join(' '), snip: c.text
+          }))).concat(SITE.registry.entries.map(r => ({
+            name: r.name, href: '#/peoples', where: 'Peoples',
+            hay: [r.name, r.origin, ...asArr(r.text)].join(' '), snip: asArr(r.text)[0]
+          })));
+        q.addEventListener('input', () => {
+          const raw = q.value.trim(), s = raw.toLowerCase();
+          if (!s) { out.innerHTML = ''; return; }
+          const hits = pool.filter(p => p.hay.toLowerCase().includes(s));
+          out.innerHTML = hits.length
+            ? hits.map(h => `<li><a href="${h.href}">${esc(h.name)}</a><span class="where">${esc(h.where)}</span><p>${esc(h.snip.length > 150 ? h.snip.slice(0, 147) + '...' : h.snip)}</p></li>`).join('')
+            : `<li>Nothing on file matches “${esc(raw)}”. Try a place, a moon, or a character name.</li>`;
+        });
+      }};
+  },
+
+  reference(){
+    const cal = SITE.calendars;
+    const row = (label, key) => `<tr><th scope="row">${label}</th>${cal.map(c => `<td>${esc(c[key])}</td>`).join('')}</tr>`;
+    return { title: 'Calendars and pronunciation', plane: 'dornalis', html: `
+      <div class="wrap">
+        <div class="page-head">
+          <a class="back" href="#/worlds">Back to all worlds</a>
+          <h1>Calendars and pronunciation</h1>
+          <p class="lede">Three worlds count time three different ways, and a few names are easy to trip over.</p>
+        </div>
+        <div class="page-body">
+          <h2>How each plane counts time</h2>
+          <div class="table-wrap"><table class="cal">
+            <thead><tr><td></td>${cal.map(c => `<th scope="col" style="--pc:${c.color || planeAccent(c.plane)}">${esc(c.label)}</th>`).join('')}</tr></thead>
+            <tbody>
+              ${row('Moons', 'moons')}${row('Week', 'week')}${row('Month', 'month')}${row('Months in a year', 'months')}${row('Year', 'year')}${row('Seasons', 'seasons')}
+            </tbody></table></div>
+          <div class="prose" style="margin-top:1.5rem">${paras(SITE.calendarNotes)}</div>
+
+          <h2 style="margin-top:4rem">How to say it</h2>
+          <ul class="say-list">${SITE.planes.map(p => `
+            <li><span class="name">${esc(p.city)}</span><span class="how">${esc(p.pron)}</span></li>`).join('')}</ul>
+        </div>
+      </div>`};
+  },
+
+  peoples(){
+    const R = SITE.registry;
+    let ticks = '';
+    for (let i = 0; i < 24; i++) {
+      const a = i * Math.PI / 12, c = Math.cos(a), sn = Math.sin(a);
+      ticks += `<line x1="${(32+c*27).toFixed(1)}" y1="${(32+sn*27).toFixed(1)}" x2="${(32+c*30).toFixed(1)}" y2="${(32+sn*30).toFixed(1)}"/>`;
+    }
+    const seal = `<svg class="seal" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+      <g fill="none" style="stroke:var(--accent)" stroke-width="1.2"><circle cx="32" cy="32" r="30.5"/><circle cx="32" cy="32" r="25"/>${ticks}</g>
+      <circle cx="27" cy="32" r="10" fill="#b7b1e8"/><circle cx="39" cy="31" r="6.5" fill="#f0c078"/></svg>`;
+    return { title: R.title, plane: 'dornalis', html: `
+      <div class="wrap">
+        <div class="page-head">
+          <div class="notice">
+            ${seal}
+            <div>
+              <p class="issuer">${esc(R.issuer)}</p>
+              <h1>${esc(R.title)}</h1>
+              <p class="filed">${esc(R.posted)}</p>
+            </div>
+          </div>
+          <div class="prose notice-intro">${paras(R.intro)}</div>
+        </div>
+        <div class="page-body">
+          <ul class="cast registry">${R.entries.map(e => `
+            <li><div class="who">${esc(e.name)}${e.origin ? `<span class="kind">From ${esc(e.origin)}</span>` : ''}</div>
+              <div><p class="status-line"><span class="status">${esc(e.status)}</span></p>${paras(asArr(e.text))}</div></li>`).join('')}
+          </ul>
+          <h2 class="cat">${esc(R.review.heading)}</h2>
+          <div class="prose"><p>${esc(R.review.intro)}</p></div>
+          ${R.review.groups.map(g => `<h3 class="realm">${esc(g.realm)}</h3>
+            <ul class="index">${g.peoples.map(x => `<li>${esc(x)}</li>`).join('')}</ul>`).join('')}
+        </div>
+      </div>`};
+  },
+
+  characters(){
+    return { title: 'Characters', plane: 'dornalis', html: `
+      <div class="wrap">
+        <div class="page-head"><h1>Characters</h1>
+          <p class="lede">Faces you'll meet in Karthmore. Some of them will be pleasant.</p></div>
+        <div class="page-body"><ul class="cast">${SITE.cast.map(c => `
+          <li><div class="who">${esc(c.name)}${c.kind ? `<span class="kind">${esc(c.kind)}</span>` : ''}</div><p>${esc(c.text)}</p></li>`).join('')}
+        </ul></div>
+      </div>`};
+  },
+
+  dispatches(parts){
+    const [slug] = parts;
+    if (slug) {
+      const p = SITE.posts.find(x => x.slug === slug);
+      if (!p) return views.notFound();
+      return { title: p.title, plane: 'dornalis', html: `
+        <div class="wrap">
+          <div class="page-head">
+            <a class="back" href="#/dispatches">Back to dispatches</a>
+            <h1>${esc(p.title)}</h1>
+            <p class="meta"><time datetime="${p.date}">${fmtDate(p.date)}</time></p>
+          </div>
+          <div class="page-body prose post-body">${paras(p.body)}</div>
+        </div>`};
+    }
+    return { title: 'Dispatches', plane: 'dornalis', html: `
+      <div class="wrap">
+        <div class="page-head"><h1>Dispatches</h1>
+          <p class="lede">News from the books, new lore as it gets written down, and notes from behind the curtain.</p></div>
+        <div class="page-body"><ul class="post-list">${postsSorted().map(p => `
+          <li><time datetime="${p.date}">${fmtDate(p.date)}</time>
+            <h2><a href="#/dispatches/${p.slug}">${esc(p.title)}</a></h2>
+            <p>${esc(p.summary)}</p></li>`).join('')}
+        </ul></div>
+      </div>`};
+  },
+
+  about(){
+    return { title: 'About', plane: 'dornalis', html: `
+      <div class="wrap">
+        <div class="page-head"><h1>About</h1></div>
+        <div class="page-body">
+          <div class="split">
+            <h2>The author</h2>
+            <div class="prose"><p>${esc(SITE.bio)}</p>
+              ${SITE.links.length ? `<ul>${SITE.links.map(l => `<li><a href="${esc(l.href)}" rel="noopener">${esc(l.label)}</a></li>`).join('')}</ul>` : ''}
+            </div>
+          </div>
+          <div class="split" style="margin-top:3rem">
+            <h2>The series</h2>
+            <div class="prose"><p>Karthmore is one city on the plane of Dornalis, and more than one story. Evelyn Reed's series comes first. A companion series follows Corven Cain, a vampire war veteran who builds an empire on the wrong side of the law.</p>
+              <p><a href="#/series">Read about the series</a></p></div>
+          </div>
+        </div>
+      </div>`};
+  },
+
+  notFound(){
+    return { title: 'Page not found', plane: 'dornalis', html: `
+      <div class="wrap"><div class="page-head"><h1>That page isn't here</h1>
+        <p class="lede">The link may be old or mistyped. Head back to the <a href="#/">home page</a> or browse the <a href="#/worlds">worlds</a>.</p></div></div>`};
+  }
+};
+
+/* ---- Router ---- */
+function render(){
+  const parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean).map(decodeURIComponent);
+  const root = parts[0] || '';
+  const key = ({ lore: 'worlds' })[root] || root;   // old #/lore links still work
+  const routable = ['home','series','worlds','peoples','characters','dispatches','about'];
+  const fn = key === '' ? views.home : (routable.includes(key) ? views[key] : null);
+  const v = fn ? fn(parts.slice(1)) : views.notFound();
+  document.body.dataset.plane = v.plane || 'dornalis';
+  applyTheme(v.plane || 'dornalis');
+  document.title = v.title ? `${v.title} | ${SITE.title}` : `${SITE.title}: ${SITE.tagline}`;
+  $main.innerHTML = v.html;
+  document.querySelectorAll('#nav a').forEach(a => {
+    if (a.dataset.r === key) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+  });
+  if (v.after) v.after();
+  const el = v.entry && document.getElementById('e-' + v.entry);
+  if (el) {
+    requestAnimationFrame(() => { el.scrollIntoView({ behavior: 'instant' }); el.classList.add('flash'); });
+  } else {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+  $main.focus({ preventScroll: true });
+}
+
+/* ---- Chrome (header, footer) ---- */
+document.getElementById('brand').innerHTML =
+  `<svg viewBox="0 0 32 20" aria-hidden="true"><circle cx="12" cy="10" r="9" fill="#b7b1e8"/><circle cx="23" cy="10" r="6" fill="#f0c078"/></svg><span>${esc(SITE.title)}</span>`;
+document.getElementById('nav').innerHTML =
+  SITE.nav.map(n => `<li><a href="${n.href}" data-r="${n.r}">${esc(n.label)}</a></li>`).join('');
+document.getElementById('foot').innerHTML =
+  `<p>© ${new Date().getFullYear()} ${esc(SITE.author)}. All rights reserved.</p>` +
+  (SITE.links.length ? `<ul>${SITE.links.map(l => `<li><a href="${esc(l.href)}" rel="noopener">${esc(l.label)}</a></li>`).join('')}</ul>` : '') +
+  (SITE.build ? `<p class="build">Site build ${esc(SITE.build)}</p>` : '');
+document.querySelector('.skip').addEventListener('click', e => { e.preventDefault(); $main.focus(); });
+
+/* ---- Smooth page changes: fade out, swap, fade the new page in in stages ---- */
+const reduceMotion = () => !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+const sigOf = () => location.hash.replace(/^#\/?/, '').split('/').filter(Boolean).slice(0, 2).join('/');
+let mode = 'first', pending = 0, lastSig = null;
+
+function stagger(){ let i = 0; $main.querySelectorAll('.page-head, .page-body, .section').forEach(el => el.style.setProperty('--i', i++)); }
+function renderIn(){
+  render();
+  $main.classList.remove('leaving');
+  stagger();
+  $main.classList.add('entering');
+  pending = setTimeout(() => $main.classList.remove('entering'), 1400);
+}
+function go(){
+  const sig = sigOf(), same = sig === lastSig, m = mode;
+  lastSig = sig; mode = 'normal'; clearTimeout(pending);
+  if (m === 'first' || same || reduceMotion()) { $main.classList.remove('leaving', 'entering'); render(); return; }
+  if (m === 'portal') { renderIn(); return; }
+  $main.classList.add('leaving');
+  pending = setTimeout(renderIn, 170);
+}
+
+/* ---- The door opens: light fills the screen from the door, then the world fades in ---- */
+let opening = false;
+function enterDoor(a){
+  opening = true;
+  const href = a.getAttribute('href'), r = a.getBoundingClientRect(), vw = window.innerWidth, vh = window.innerHeight, rad = r.width / 2;
+  const from = `inset(${r.top}px ${vw - r.right}px ${vh - r.bottom}px ${r.left}px round ${rad}px ${rad}px 6px 6px)`;
+  const to = 'inset(0px 0px 0px 0px round 0px 0px 0px 0px)';
+  const ov = document.createElement('div');
+  ov.className = 'portal';
+  ov.setAttribute('style', a.getAttribute('style') || '');
+  ov.setAttribute('aria-hidden', 'true');
+  ov.style.clipPath = from;
+  ov.style.opacity = '0';
+  document.body.appendChild(ov);
+  a.classList.add('opening');
+  const done = () => { ov.remove(); a.classList.remove('opening'); opening = false; };
+  ov.animate([
+    { clipPath: from, opacity: 0, easing: 'ease-out' },
+    { clipPath: from, opacity: 1, offset: .22, easing: 'cubic-bezier(.65,0,.2,1)' },
+    { clipPath: to,   opacity: 1 }
+  ], { duration: 900, fill: 'forwards' }).finished.then(() => {
+    mode = 'portal';
+    if (location.hash === href) go(); else location.hash = href;
+    setTimeout(() => {
+      ov.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 700, easing: 'ease', fill: 'forwards' }).finished.then(done, done);
+    }, 140);
+  }, done);
+}
+document.addEventListener('click', e => {
+  const a = e.target.closest && e.target.closest('a.door');
+  if (!a || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || reduceMotion()) return;
+  e.preventDefault();
+  if (!opening) enterDoor(a);
+});
+
+window.addEventListener('hashchange', go);
+go();
+</script>
+</body>
+</html>
