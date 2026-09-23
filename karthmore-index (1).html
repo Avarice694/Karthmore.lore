@@ -1,0 +1,1383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Karthmore</title>
+<meta name="description" content="Arcanepunk fantasy. A city of guilds, glass, and doors that open onto other worlds. The series, the worlds, the peoples, and new dispatches.">
+<meta name="theme-color" content="#15172a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&display=swap" rel="stylesheet">
+<style>
+/* ------------------------------------------------------------------
+   Tokens. These are the default (Dornalis) colors. Each world re-themes
+   the page from its "color" in the content block, so you rarely need to
+   touch this.
+------------------------------------------------------------------- */
+:root{
+  --display:"Marcellus","Trajan Pro","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --body:"Newsreader",Charter,"Iowan Old Style",Georgia,serif;
+  --ink:#15172a; --ink-2:#1d2040; --ink-3:#2a2e55;
+  --bone:#ece5d4; --bone-dim:#b9b3a5;
+  --accent:#f0c078;      /* Soltera gold */
+  --accent-2:#b7b1e8;    /* Nyxara lilac */
+  --line:rgba(236,229,212,.18);
+  --wrap:1120px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ink);color:var(--bone);font:400 1.125rem/1.7 var(--body);transition:background-color .6s ease}
+img{max-width:100%;height:auto}
+a{color:var(--accent);text-underline-offset:.2em}
+a:hover{color:var(--bone)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent-2);outline-offset:3px}
+main:focus{outline:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:1rem;top:-5rem;z-index:60;padding:.6rem 1rem;background:var(--accent);color:var(--ink);border-radius:4px}
+.skip:focus{top:1rem}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 clamp(1.25rem,4vw,2.5rem)}
+
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.15}
+h2{font-size:clamp(1.8rem,3.6vw,2.7rem);margin-bottom:1rem}
+p{margin:0 0 1.1em}
+.prose p{max-width:66ch}
+.lede{font-size:1.3rem;line-height:1.5;max-width:44rem}
+.muted{color:var(--bone-dim)}
+
+/* ---- Header ---- */
+.site-head{background:rgba(21,23,42,.9);background:color-mix(in srgb,var(--ink) 90%,transparent);border-bottom:1px solid var(--line);z-index:30;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+@media(min-width:760px){.site-head{position:sticky;top:0}}
+.head-in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem 2rem;padding-block:.85rem}
+.brand{display:flex;align-items:center;gap:.7rem;font-family:var(--display);font-size:1.35rem;letter-spacing:.03em;color:var(--bone);text-decoration:none}
+.brand svg{width:32px;height:20px;flex:none}
+.site-nav ul{display:flex;flex-wrap:wrap;gap:.1rem 1.6rem;list-style:none;margin:0;padding:0}
+.site-nav a{display:inline-block;padding:.3rem 0;color:var(--bone-dim);text-decoration:none;font-size:1.02rem;border-bottom:2px solid transparent;transition:color .2s ease,border-color .3s ease}
+.site-nav a:hover{color:var(--bone)}
+.site-nav a[aria-current="page"]{color:var(--bone);border-bottom-color:var(--accent)}
+
+/* ---- Buttons ---- */
+.btn{display:inline-block;padding:.75rem 1.5rem;border-radius:4px;border:1.5px solid var(--accent);background:var(--accent);color:#15172a;font-family:var(--display);font-size:1.05rem;letter-spacing:.02em;text-decoration:none;transition:background-color .2s ease,color .2s ease}
+.btn:hover{background:transparent;color:var(--accent)}
+.btn.ghost{background:transparent;color:var(--bone);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--bone);color:var(--bone)}
+.actions{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:2rem}
+
+/* ---- Hero: the skyline and the two moons are the one loud thing ---- */
+.hero{position:relative;overflow:hidden;min-height:min(90vh,880px);display:flex;align-items:flex-start;
+  background:linear-gradient(180deg,#0b0d1e 0%,#171a3a 40%,#33294f 72%,#5b4256 100%)}
+.hero .glow{position:absolute;inset:auto 0 0 0;height:65%;background:radial-gradient(60% 70% at 50% 100%,rgba(240,192,120,.24),transparent 70%)}
+.hero svg.skyline{position:absolute;left:0;bottom:-1px;width:100%;height:62%}
+.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:90px;background:linear-gradient(to top,#15172a,transparent)}
+.hero-copy{position:relative;z-index:2;width:100%;padding-top:clamp(3rem,13vh,8rem);padding-bottom:6rem}
+.hero h1{font-size:clamp(3.6rem,12vw,9.5rem);line-height:.95;letter-spacing:.01em;text-shadow:0 2px 30px rgba(10,10,30,.6)}
+.hero .say{margin:.9rem 0 0;font-style:italic;color:var(--accent);font-size:1.15rem}
+.hero .lede{margin-top:1.4rem;color:var(--bone);text-shadow:0 1px 14px rgba(10,10,30,.8)}
+.moon{position:absolute;border-radius:50%;animation:rise 2.6s cubic-bezier(.2,.7,.2,1) both}
+.nyx{width:clamp(84px,13vw,180px);aspect-ratio:1;top:9%;right:clamp(6%,12vw,16%);
+  background:
+   radial-gradient(circle at 62% 64%,rgba(90,84,150,.55) 0 9%,transparent 10%),
+   radial-gradient(circle at 34% 70%,rgba(90,84,150,.4) 0 6%,transparent 7%),
+   radial-gradient(circle at 70% 30%,rgba(90,84,150,.35) 0 5%,transparent 6%),
+   radial-gradient(circle at 36% 30%,#f4f0ff 0,#c4beee 50%,#8a84c4 100%);
+  box-shadow:0 0 70px 14px rgba(183,177,232,.28)}
+.sol{width:clamp(48px,7vw,96px);aspect-ratio:1;top:27%;right:clamp(22%,30vw,34%);animation-delay:.35s;
+  background:radial-gradient(circle at 36% 30%,#fff3d6 0,#f3c882 55%,#cf9350 100%);
+  box-shadow:0 0 60px 12px rgba(240,192,120,.3)}
+@keyframes rise{from{transform:translateY(60px);opacity:0}to{transform:none;opacity:1}}
+@media(max-width:640px){
+  .hero-copy{padding-top:9rem}
+  .nyx{top:2.2rem;right:12%}
+  .sol{top:3.6rem;right:38%}
+}
+
+/* ---- Sections ---- */
+.section{padding-block:clamp(3.5rem,8vw,6rem)}
+.section + .section{border-top:1px solid var(--line)}
+.split{display:grid;gap:1.5rem clamp(2rem,6vw,5rem);grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+@media(max-width:800px){.split{grid-template-columns:1fr}}
+.page-head{padding-block:clamp(3rem,7vw,5rem) 1.5rem}
+.page-head h1{font-size:clamp(2.5rem,6vw,4.2rem)}
+.page-head .lede{margin-top:1rem}
+.page-body{padding-bottom:clamp(3rem,7vw,5rem)}
+.back{display:inline-block;margin-bottom:1.25rem;color:var(--bone-dim)}
+
+/* ---- Doors: one per plane, moon count shown as pips in the arch ---- */
+.doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:clamp(1rem,3vw,2.25rem);margin:2.5rem 0 0;padding:0;list-style:none}
+@media(max-width:760px){.doors{grid-template-columns:1fr;max-width:22rem}}
+.door{--a:#f0c078;--bg1:#22254a;--bg2:#38335f;
+  position:relative;display:flex;flex-direction:column;height:100%;min-height:420px;padding:2rem 1.5rem 1.7rem;
+  color:var(--bone);text-decoration:none;text-align:center;
+  border:1.5px solid var(--a);border-radius:999px 999px 8px 8px;
+  background:radial-gradient(70% 45% at 50% 100%,color-mix(in srgb,var(--a) 34%,transparent),transparent 70%),linear-gradient(180deg,var(--bg1),var(--bg2));
+  transition:box-shadow .3s ease}
+.door::before{content:"";position:absolute;inset:10px;border:1px solid color-mix(in srgb,var(--a) 45%,transparent);border-radius:999px 999px 4px 4px;pointer-events:none}
+.door:hover{color:var(--bone);box-shadow:0 0 44px -6px var(--a)}
+.door .pips{display:flex;justify-content:center;gap:.65rem;margin-bottom:auto;padding-top:3.4rem}
+.door .pips i{display:block;width:13px;height:13px;border-radius:50%;background:var(--a);box-shadow:0 0 14px 2px color-mix(in srgb,var(--a) 60%,transparent)}
+.door h3{font-size:1.7rem;margin:1.5rem 0 .1rem}
+.door .city{font-style:italic;color:var(--a);margin:0 0 .15rem}
+.door .count{font-size:.95rem;color:var(--bone-dim);margin:0 0 .8rem}
+.door .line{font-size:1rem;line-height:1.5;margin:0}
+
+/* ---- Series ---- */
+.series-item{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:1rem clamp(2rem,6vw,5rem);padding-block:2.5rem;border-top:1px solid var(--line)}
+@media(max-width:800px){.series-item{grid-template-columns:1fr}}
+.series-item h2{margin:0}
+.series-item .kind{margin:.3rem 0 0;font-style:italic;color:var(--accent)}
+.status{display:inline-block;margin-top:.9rem;padding:.1rem .8rem;border:1px solid var(--line);border-radius:999px;font-size:.95rem;color:var(--bone-dim)}
+.series-item img{display:block;margin-bottom:1.25rem;max-width:220px;border-radius:3px}
+
+/* ---- Cast ---- */
+.cast{margin:1.5rem 0 0;padding:0;list-style:none}
+.cast li{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:.4rem 3rem;padding:1.5rem 0;border-top:1px solid var(--line)}
+@media(max-width:700px){.cast li{grid-template-columns:1fr}}
+.cast .who{font-family:var(--display);font-size:1.5rem;line-height:1.2}
+.cast .kind{display:block;margin-top:.3rem;font-family:var(--body);font-style:italic;font-size:1rem;color:var(--accent)}
+.cast p{margin:0;max-width:60ch}
+.cast p + p{margin-top:.8em}
+
+/* ---- Worlds ---- */
+.search{display:block;width:100%;max-width:34rem;margin-top:1.75rem;padding:.8rem 1rem;font:inherit;color:var(--bone);background:var(--ink-2);border:1px solid var(--line);border-radius:6px}
+.search::placeholder{color:var(--bone-dim)}
+.results{list-style:none;margin:1rem 0 0;padding:0;max-width:46rem}
+.results li{padding:.9rem 0;border-top:1px solid var(--line)}
+.results a{font-family:var(--display);font-size:1.2rem;text-decoration:none}
+.results .where{margin-left:.6rem;font-style:italic;font-size:.95rem;color:var(--bone-dim)}
+.results p{margin:.2rem 0 0;font-size:1rem;color:var(--bone-dim)}
+.ref-link{display:block;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--line)}
+
+/* ---- Ships: a second city inside the same world, reached without a door ---- */
+.ships{display:grid;grid-template-columns:1fr;gap:1.25rem;margin:1.5rem 0 0;padding:0;list-style:none;max-width:46rem}
+.ship-card{display:block;padding:1.5rem 1.4rem;color:var(--bone);text-decoration:none;border:1px solid var(--a);border-radius:4px;
+  background:linear-gradient(160deg,color-mix(in srgb,var(--a) 16%,var(--ink-2)),var(--ink-2));transition:box-shadow .25s ease,transform .25s ease}
+.ship-card:hover{color:var(--bone);box-shadow:0 0 30px -8px var(--a);transform:translateY(-2px)}
+.ship-card h3{font-size:1.4rem;color:var(--a)}
+.ship-card .ruler{margin:.3rem 0 0;font-style:italic;color:var(--bone-dim)}
+.ship-card .line{margin:.6rem 0 0;font-size:1rem}
+.ship-card .travel{margin:.6rem 0 0;font-size:.9rem;font-style:italic;color:var(--bone-dim)}
+.city-head .ruler{margin:.6rem 0 0;font-style:italic;color:var(--accent);font-size:1.15rem}
+.plane-facts{margin:1.25rem 0 0;color:var(--bone-dim)}
+.index{display:flex;flex-wrap:wrap;gap:.35rem 1.4rem;margin:1.5rem 0 0;padding:0;list-style:none}
+.cat{font-size:1.3rem;color:var(--accent);margin:3rem 0 .25rem}
+.entry{max-width:70ch;padding:1.75rem 0 .5rem;border-top:1px solid var(--line);scroll-margin-top:5rem}
+.entry h3{font-size:1.55rem;margin-bottom:.5rem}
+.entry .say{margin-left:.7rem;font-family:var(--body);font-style:italic;font-size:1rem;color:var(--accent)}
+.entry ul{margin:0 0 1.1em;padding-left:1.2rem}
+.entry.flash{animation:flash 2.4s ease-out}
+@keyframes flash{from{background:color-mix(in srgb,var(--accent) 22%,transparent)}to{background:transparent}}
+
+.table-wrap{overflow-x:auto;margin-top:1.5rem}
+.cal{width:100%;min-width:640px;border-collapse:collapse}
+.cal th,.cal td{padding:.9rem 1rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+.cal thead th{font-family:var(--display);font-weight:400;font-size:1.3rem;border-bottom:2px solid var(--pc)}
+.cal tbody th{width:10rem;font-weight:400;font-style:italic;color:var(--bone-dim)}
+.say-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2rem;margin:1.5rem 0 0;padding:0;list-style:none}
+.say-list li{padding-top:1rem;border-top:1px solid var(--line)}
+.say-list .name{display:block;font-family:var(--display);font-size:2rem;line-height:1.2}
+.say-list .how{display:block;margin-top:.2rem;font-style:italic;font-size:1.2rem;color:var(--accent)}
+
+/* ---- Registry: reads as a notice posted by the city ---- */
+.notice{display:flex;align-items:center;gap:clamp(1rem,3vw,2rem);padding:clamp(1.25rem,3vw,2rem);border:1px solid var(--accent);box-shadow:inset 0 0 0 6px var(--ink),inset 0 0 0 7px var(--line)}
+.notice .seal{flex:none;width:clamp(64px,10vw,96px);height:auto}
+.notice .issuer{margin:0 0 .3rem;font-style:italic;color:var(--accent)}
+.notice h1{font-size:clamp(2rem,5vw,3.2rem)}
+.notice .filed{margin:.6rem 0 0;color:var(--bone-dim)}
+.notice-intro{margin-top:2rem}
+@media(max-width:560px){.notice{flex-direction:column;align-items:flex-start}}
+.cast .status-line{margin:0 0 .6rem}
+.cast .status{margin-top:0}
+.census tbody th{width:auto;font-style:normal;color:var(--bone)}
+.census-note{margin-top:.75rem;font-size:.95rem}
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;margin:1.5rem 0 0}
+.tier{padding:1.5rem;border:1px solid var(--line);border-radius:4px}
+.tier h3{font-size:1.3rem;color:var(--accent)}
+.tier-peoples{margin:.5rem 0;font-style:italic;color:var(--bone-dim)}
+.fg-head{margin-top:3.5rem;padding-top:2rem;border-top:1px solid var(--line)}
+.fg-head h2{margin-bottom:.2rem}
+.fg-head .byline{font-style:italic;color:var(--bone-dim)}
+.realm{margin:2.25rem 0 0;font-size:1.3rem}
+.sealed{margin-top:4rem;padding-top:2rem;border-top:1px solid var(--line)}
+.sealed h2{font-size:1.8rem}
+
+/* ---- Dispatches ---- */
+.post-list{list-style:none;margin:1.5rem 0 0;padding:0}
+.post-list li{max-width:46rem;padding:1.75rem 0;border-top:1px solid var(--line)}
+.post-list h2,.post-list h3{font-size:1.7rem;margin:.15rem 0 .5rem}
+.post-list h2 a,.post-list h3 a{color:var(--bone);text-decoration:none}
+.post-list h2 a:hover,.post-list h3 a:hover{color:var(--accent)}
+.post-list p{margin:0}
+time,.meta{font-style:italic;font-size:1rem;color:var(--bone-dim)}
+.post-body{margin-top:2rem}
+
+/* ---- Page transitions and the door opening ---- */
+main{transition:opacity .16s ease}
+main.leaving{opacity:0}
+main.entering .page-head,main.entering .page-body,main.entering .section{animation:pageIn .55s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i,0) * 80ms)}
+main.entering .hero{animation:heroIn .9s ease both}
+@keyframes pageIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes heroIn{from{opacity:0}to{opacity:1}}
+.door.opening{box-shadow:0 0 70px 6px var(--a)}
+.door.opening .pips i{transform:scale(1.7);transition:transform .5s ease}
+.portal{position:fixed;inset:0;z-index:100;
+  background:radial-gradient(45% 55% at 50% 55%,color-mix(in srgb,var(--a) 75%,#fff 12%) 0,color-mix(in srgb,var(--a) 28%,transparent) 55%,transparent 85%),linear-gradient(180deg,var(--bg1),var(--bg2))}
+
+/* ---- Footer ---- */
+.site-foot{border-top:1px solid var(--line);padding-block:2.5rem;font-size:1rem;color:var(--bone-dim)}
+.site-foot ul{display:flex;flex-wrap:wrap;gap:.3rem 1.5rem;list-style:none;margin:.75rem 0 0;padding:0}
+.site-foot p{margin:0}
+.site-foot .build{margin-top:.75rem;font-size:.85rem;opacity:.7}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body data-plane="dornalis">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap head-in">
+    <a class="brand" href="#/" id="brand"></a>
+    <nav class="site-nav" aria-label="Main"><ul id="nav"></ul></nav>
+  </div>
+</header>
+<main id="main" tabindex="-1"></main>
+<footer class="site-foot"><div class="wrap" id="foot"></div></footer>
+<noscript><div class="wrap"><p>This site needs JavaScript turned on to show its pages.</p></div></noscript>
+
+<script>
+/* ==== CONTENT START ====================================================
+   Everything you'll want to edit lives in this block. Change the text
+   between the quotes, save, and re-upload. Anything in [square brackets]
+   is a placeholder waiting for you.
+======================================================================== */
+const SITE = {
+  title: "Karthmore",                       // Big title on the home page. Swap in your series title when you have one.
+  pronunciation: "Car-th-more",
+  author: "Avarice",
+  build: "v7, 21 Sep 2026",                 // Shown in the footer so you can tell which version is live. Delete this line and the footer note once it is working.
+  tagline: "Arcanepunk fantasy. A city of guilds, glass, and doors that open onto other worlds.",
+  bio: "Avarice is a writer and worldbuilder building Karthmore, an arcanepunk city on the plane of Dornalis, and the series that grow out of it. When not writing, Avarice runs tabletop campaigns as a dungeon master, which may explain why this world has forty-five articles of law.",
+  links: [
+    // { label: "Newsletter", href: "https://example.com" },
+    // { label: "Instagram",  href: "https://instagram.com/yourname" },
+  ],
+
+  nav: [
+    { label: "Series",     href: "#/series",     r: "series" },
+    { label: "Worlds",     href: "#/worlds",     r: "worlds" },
+    { label: "Peoples",    href: "#/peoples",    r: "peoples" },
+    { label: "Characters", href: "#/characters", r: "characters" },
+    { label: "Dispatches", href: "#/dispatches", r: "dispatches" },
+    { label: "About",      href: "#/about",      r: "about" }
+  ],
+
+  premise: [
+    "Karthmore is a city that runs on paper, glass, and leverage. It is an arcanepunk metropolis in the Korrathis Imperium, on the plane of Dornalis. Its guilds have their own law, its code runs to forty-five articles, and a rebellion is slipping in through doors drawn in chalk.",
+    "Evelyn Reed is an assistant at the Glass-Binders Guild, and she is about to be pulled into a rebellion she never applied for. Beyond the city, other worlds wait behind Velo-Script doors: elvish, solarpunk Alathia and dwarvish, steampunk Krag Doss Ner. Each keeps its own moons and its own calendar, and none of them agrees on what a city is for."
+  ],
+
+  series: [
+    {
+      title: "Evelyn Reed",
+      kind: "Primary series",
+      status: "In drafting",
+      cover: "",   // optional: path to a cover image, e.g. "images/evelyn-cover.jpg"
+      text: [
+        "Evelyn Reed is a human assistant at the Glass-Binders Guild in Karthmore. Her days were ordinary until a political rebellion reached the city and drew her in.",
+        "Expect guild politics, a charismatic rebel, and doors that do not stay where you left them."
+      ]
+    },
+    {
+      title: "Corven Cain",
+      kind: "Companion series",
+      status: "Planned",
+      cover: "",
+      text: [
+        "Corven Cain is a 113-year-old vampire and a war veteran. His House rejected him, and he answered by building a criminal empire in Karthmore.",
+        "You will catch two brief glimpses of him in Evelyn's story first."
+      ]
+    }
+  ],
+
+  // ADDING A NEW WORLD: copy the commented example below, paste it after the last world
+  // (keep the comma between blocks), remove the // marks, and change the words.
+  // "color" is all you need for the look: the door and the page theme are built from it.
+  // Pick a bright or light color so text stays readable. "moons" is a number.
+  // "key" must be lowercase with no spaces. Give the world's lore entries the same key in
+  // their plane: "..." field.
+  planes: [
+    {
+      key: "dornalis", name: "Dornalis", city: "Karthmore", pron: "Car-th-more", moons: 2,
+      moonNames: "Nyxara and Soltera",
+      line: "An arcanepunk metropolis in the Korrathis Imperium. Guilds, law, and a rebellion.",
+      intro: "The plane where the series begins. Home to Karthmore, the Korrathis Imperium, and the vampire continent of Ashenmoor, reached by ship rather than by door.",
+      color: "#f0c078",
+      theme: { ink: "#15172a", ink2: "#1d2040", ink3: "#2a2e55", accent: "#f0c078", accent2: "#b7b1e8" },
+      vars: { a: "#f0c078", bg1: "#22254a", bg2: "#38335f" }
+    },
+    {
+      key: "alathia", name: "Alathia", city: "Sylvaren", pron: "Sil-VAR-en", moons: 5,
+      moonNames: "Thalessiel, Vaelora, Miraeth, Fenlyr, and Aurelith",
+      line: "An elvish plane with a solarpunk city.",
+      intro: "An elvish plane, reached only through a Velo-Script door.",
+      color: "#a4d99e",
+      theme: { ink: "#101f1b", ink2: "#173029", ink3: "#20443a", accent: "#a4d99e", accent2: "#ecd98f" },
+      vars: { a: "#a4d99e", bg1: "#14302a", bg2: "#21503f" }
+    },
+    {
+      key: "krag", name: "Krag Doss Ner", city: "Khul-Dar-Ness", pron: "Khuul-DAR-ness", moons: 1,
+      moonNames: "Bronnvar",
+      line: "A dwarvish plane with a steampunk city.",
+      intro: "A dwarvish plane, reached only through a Velo-Script door.",
+      color: "#e08a5f",
+      theme: { ink: "#1c1613", ink2: "#2a201a", ink3: "#3b2c22", accent: "#e08a5f", accent2: "#aeb9c2" },
+      vars: { a: "#e08a5f", bg1: "#2b201a", bg2: "#46332a" }
+    }
+    // ,{
+    //   key: "spirit", name: "The Spirit Realm", city: "City name", pron: "how to say it", moons: 1,
+    //   moonNames: "Moon name",
+    //   line: "One sentence shown on the door.",
+    //   intro: "One or two sentences at the top of the world's page.",
+    //   color: "#c9a0ff"
+    // }
+    ,{
+      key: "shensora", name: "Shensora", city: "The Four Settlements", pron: "Shen-SOR-uh (a guess — correct it if you have the real one)", moons: 5,
+      moonNames: "Thalessiel, Vaelora, Miraeth, Fenlyr, and Aurelith — the same moons Alathia sees, the two worlds sit close enough in planar space to share them",
+      line: "The Spirit Realm, named at last. Air thick with raw Aether, and four very different homes for the people it shaped.",
+      intro: "Once logged only as the Spirit Realm, now known by its own name. Shensora has no single capital — four regions, four peoples, four ways of living with air that changes whoever breathes it.",
+      color: "#b19cd9",
+      theme: { ink: "#1a1530", ink2: "#241d40", ink3: "#332a55", accent: "#b19cd9", accent2: "#f0c078" },
+      vars: { a: "#b19cd9", bg1: "#241d40", bg2: "#3a2f5c" }
+    }
+  ],
+
+  // OTHER PLACES WITHIN A WORLD, NOT REACHED BY DOOR: a plane can hold more
+  // than one of these. Each gets its own full page and its own color, but
+  // sits inside its parent plane rather than getting a separate door of its
+  // own. "travel" is the short line shown on its card — how you actually get
+  // there (by ship, overland, whatever fits). To add one, copy an entry,
+  // change "plane" to the world it belongs to, and write "sections": each
+  // section is a heading plus paragraphs (or a "list" of short items).
+  cities: [
+    {
+      key: "ashenmoor", plane: "dornalis", name: "Ashenmoor",
+      tagline: "The vampire continent, once part of the same supercontinent as Korrathis.",
+      travel: "Five days by ship, across the strait the Sundering left behind.",
+      ruler: "King Malakor Drake",
+      color: "#9a3b5c",
+      sections: [
+        { h: "Geography and infrastructure", text: [
+          "The Midnight Expanse is a sprawling lowland that physically mirrors the night sky. The Sundered Spine, a towering central mountain range, splits the continent into west and east, crossed by the heavily fortified Shadow Gate Pass. Dense timberland runs the western coast, wraps the central mountain crescent, lines the southern shore, and holds the eastern block.",
+          "Three cities anchor the southeast: Highspire, the primary cultural and guild capital; Ravencrest, the interior crossroads hub; and Tidefall, an island metropolis across the channel. Gloomforge is the northwestern industrial mining city, built high near the northern ridges to extract raw metals and minerals. Anchor's Rest is a massive coastal village on the northeastern peninsula and the continent's premier maritime shipping hub.",
+          "Wayland Anchors are specialized transit stations housing metal-framed doors near the major trade roads and the Shadow Gate Pass, built for rapid cross-continent travel. Coastal shipping handles bulk cargo, and overland trade routes connect Gloomforge, the Shadow Gate Pass, the Wayland Anchors, and the southeastern metropolis network across the channel."
+        ] },
+        { h: "Sky and weather", text: [
+          "Natural overcast skies diffuse daylight into a comfortable, perpetual twilight. Rolling rainstorms sweep the land on a regular schedule, and inhabitants follow strict routines to collect, store, and redistribute that rainwater into urban cisterns and agricultural fields.",
+          "Ashenmoor keeps the same 24-hour day and night cycle as Karthmore. On a full moon, Lycans and were-creatures shift involuntarily; cities keep locked gates open for those who choose the wilderness, alongside fortified sanctuary buildings inside the walls for residents who'd rather stay. A nighttime eclipse instantly cancels all transformations and suppresses shifting entirely. A daytime solar eclipse does the opposite: it allows easier, voluntary transformation while the mind stays in full control."
+        ] },
+        { h: "Feeding and food", text: [
+          "Most vampires rely on consensual feeding contracts with willing human and mortal residents, a practice the culture treats as a respected, mutually beneficial partnership, usually supported through stipends or privileges. Feeding on livestock is strictly taboo and heavily discouraged, since it drains the continent's food infrastructure directly.",
+          "Rain-fed agricultural belts and ranches carry the caloric load instead, sized to feed Lycans and were-creatures alongside the broader mortal population."
+        ] },
+        { h: "History, magic, and government", text: [
+          "Ashenmoor once shared a single supercontinent with Karthmore, before the Sundering split them apart. Left to itself, Ashenmoor prioritized local infrastructure, civil engineering, and agricultural technology over expansion. It adopted Rune Doors only during the war with Alathia, and that war was what led to its discovery of planar magic at all.",
+          "Vampires and Shifters trace their power to ancestors cursed by the Old Gods. Over generations those curses softened into abilities the culture now manages and celebrates rather than fears. Migrations of humans and witches after the war brought vital aid and permanently expanded the population.",
+          "Government runs in three tiers. The King, currently Malakor Drake, holds supreme authority over continental law, international relations, and defense. The Potentates are lineage and religious leaders who manage spiritual doctrine and sacred policy. The Governors are civic administrators who run individual cities, rain-siphon schedules, and public works."
+        ] },
+        { h: "Karthmore and the Rebellion", text: [
+          "Ashenmoor is a firm, official ally of Karthmore, and actively extradites Rebel fugitives who enter through the Wayland Anchors back to Karthmore as prisoners of war. Underneath that alliance, a portion of the civilian population secretly sympathizes with the Rebellion's cause, whatever their government's position."
+        ] },
+        { h: "What makes it different", text: [
+          "Ashenmoor prioritizes internal stability, infrastructure, and the wellbeing of its own people over reach across the multiverse. It is a land of symbiotic pragmatism, where ancient divine curses became honored legacies, and where disparate races built a self-sustaining home together rather than an empire."
+        ] }
+      ]
+    },
+    {
+      key: "tirna-gael", plane: "dornalis", name: "Tirna-Gael",
+      tagline: "A second continent on Korrathis's own plane, low on Aether and closer to Earth than to Karthmore.",
+      travel: "By ship only. Its rune doors carry trade with other realms, never travelers.",
+      color: "#4f8a6d",
+      sections: [
+        { h: "Overview & Geography", text: [
+          "Tirna-Gael is a low-Aether material plane that shares the same physical plane as Korrathis. Its physics strongly mirror Earth, featuring a varied landscape of major continents, wild inland biomes, and island chains.",
+          "At the center of the known world lies a primary central hub island, home to the permanent planar rune doors that connect Tirna-Gael to other realms. The central hub functions as a bustling multi-race diplomatic and commercial port; the surrounding continents are divided into distinct racial homelands and regional cities."
+        ] },
+        { h: "Biomes & Architecture", text: [
+          "Architecture across Tirna-Gael is heavily biome-specific, using locally sourced materials and structural aesthetics that reflect the physiology and culture of each native race.",
+          "Selkies raise underwater and amphibious architecture along coastal reefs and ocean trenches — organic curves, bioluminescent accents, polished coral stone, soft blues, greens, and whites. Banshees build high-altitude, wind-resistant stone shelters and rope-anchored structures into mountain peaks, using cold grays, tans, and natural slate. Centaurs favor mobile, modular tent structures, wind-breaks, and heavy wooden platforms designed for rapid assembly and breakdown during seasonal migrations. Dryads and Nymphs grow living-wood architecture, woven canopy dwellings, and terraced stone waterways integrated directly into natural flora."
+        ] },
+        { h: "Sensory Details & Atmosphere", text: [
+          "Because Tirna-Gael sits on the same material plane as Korrathis, its physical laws strongly mimic Earth, though with a distinctly low ambient Aether level.",
+          "The air is crisp, dense, and clean, carrying sharp natural scents — salty ocean sprays, damp soil, pine resin, and dry sun-baked grass — without the heavy industrial haze of Korrathis. Daylight is bright and unfiltered, casting sharp shadows across open plains and dappled light through forest canopies. Nights are clear and star-lit.",
+          "Sound is acoustic and physical: the creak of wooden docks, the rustle of glider canvas, the rhythmic thud of hooves on dirt, and wind cutting through mountain passes. Low Aether leaves the world feeling quiet and physically grounded. Magic does not linger or warp the landscape, forcing reliance on natural effort, physical crafting, and weathercraft."
+        ] },
+        { h: "Urbanization & Regional Cities", text: [
+          "While the central hub island handles international planar trade, permanent cities and regional trade posts dot the main continents. Urbanization exists in balance with the surrounding environments.",
+          "Working industries include blacksmiths, textile weavers, timber yards, and glassworks that support shipbuilding, glider construction, and regional commerce. Production relies on wind power, natural waterwheels, and high-ventilation stonework rather than mass coal-burning mills or runic shielding. Well-maintained stone roads, river networks, and coastal shipping routes connect inland settlements to coastal ports."
+        ] },
+        { h: "Governance, Law & Political Alignment", text: [
+          "Political alignment across Tirna-Gael is fragmented into three primary models across its racial homelands.",
+          "The Annexed Nations are imperial-controlled key coastal regions and trade arteries, governed by imperial tax collectors, garrisons, and strict regulations. The Allied Nations are sovereign territories maintaining formal trade treaties and diplomatic alliances with the Empire, leveraging vital exports to preserve their independence. The Independent Nations are untamed biomes — Banshee crags, Dryad groves, Centaur steppes — that recognize no imperial authority and actively push back against foreign presence. The Central Hub sits as neutral diplomatic ground, governed by a coalition of regional delegates."
+        ] },
+        { h: "Culture, Daily Life & Customs", text: [
+          "Daily rhythms are determined by location and environment. In the racial homelands, Centaurs and Banshees center their days around breaking camp, inspecting herds, migrating, scouting, and holding tribal councils. Selkies spend mornings underwater harvesting kelp and reagents, then mid-days in land form trading along beaches and docks. Nymphs and Dryads align work cycles with daylight, focusing on river care, timber-shaping, and harvesting raw alchemical botanicals.",
+          "Imperial city rhythms in annexed hubs follow rigid imperial clockwork — set market hours, uniform shift schedules, and nightfall curfew bells. Independent hub rhythms operate under agreed-upon civic treaties so multi-race timetables prevent overlap between nocturnal mountain dwellers, amphibious traders, and terrestrial merchants."
+        ] },
+        { h: "Magic & Technology", text: [
+          "Low-Aether levels severely restrict speed-casting and traditional spells. Mages struggle with basic incantations, so society shifts focus away from pure arcana. Alchemy serves as the primary functional power of the plane: potion-making and reagent refinement account for 45% of urban jobs, while 30% of the working class operates as specialized farmers, gatherers, and hunters supplying the raw ingredients.",
+          "The permanent planar doors in the central city remain the most powerful magical artifacts on the continent, preserved via alchemical stabilization and legacy enchanting for high-value trade. Cross-continent travel uses lightweight industrial gliders launched via high-tension ballista catapult systems. Major cities feature permanent launch towers and hangars; nomadic populations use horse-drawn mobile landing platforms to receive couriers and travelers along their migration routes."
+        ] },
+        { h: "Key Figures & Factions", text: [
+          "In the annexed cities the Imperial Guild Houses operate as local branches of Korrathis guilds: the Alchemical Syndicate sets reagent quotas and pricing, the Courier Guild runs the launch towers and glider logistics, and the Imperial Tax Directorate handles tariffs and trade licensing.",
+          "The High Council of the Central Hub is a diplomatic body composed of delegates from each race — Centaur clan speaker, Selkie dock-reeve, Dryad grove-keeper — managing local laws and planar door security. Continental Clan Leaders include Nomad High Chieftains who manage migration paths and wilderness law, and Coastal Merchant Princes who control deep-sea marine exports."
+        ] },
+        { h: "What makes it different", text: [
+          "Tirna-Gael is the closest thing to Earth that the plane has to offer — low on magic, high on craft, and organized around what a person can actually build with their hands. Where Karthmore runs on Velo-Script and Ashenmoor on divine curses, Tirna-Gael runs on alchemy, gliders, and four very different peoples who mostly just want to be left alone on their own land."
+        ] }
+      ]
+    },
+    {
+      key: "sovereign-reach", plane: "dornalis", name: "The Sovereign Reach",
+      tagline: "The independent nation sharing Korrathis's own continent with the Imperium — the Four-Race Frontier.",
+      travel: "Overland, across the shared continent. No door, no ship.",
+      color: "#7a8f6b",
+      sections: [
+        { h: "Settlement & Geographic Layout", text: [
+          "The Ridge of Cinders is a towering northern mountain range featuring sheer coastal cliffs along the sea. Peakhold Crag, a high-altitude Orc fortress in the northwest, monitors the northern waters. The High Bastion, an Orc stronghold in the northeast, guards the eastern mountain passes. Gloomforge Deep holds subterranean Gnomish workshop networks and iron towers embedded in the mountain core. The Pass-Gate Ramparts are Half-Orc foothill cities managing pass security and mountain-to-lowland trade.",
+          "South of the mountains, the Lowland Valleys are fertile plains cultivated by widespread Halfling farming communities, centered on Oakhaven Market, the central Halfling agricultural and market hub. Port Anchors, on the southwest coast, handles sea trade and heavy shipping."
+        ] },
+        { h: "Governance & Regional Law", text: [
+          "Each race governs its own territory: Gnomes through a Guild-Tech Oligarchy, Orcs through Clan Councils, Half-Orcs through a Martial Republic, and Halflings through Elder Assemblies. The Century Accord, a shared legal framework established a hundred years ago, enforces local jurisdiction based on territory. The Quad-Council, a joint diplomatic body of all four races, resolves inter-race disputes and coordinates defense."
+        ] },
+        { h: "Evolutionary History & Trade Protocols", text: [
+          "The Reach's four races share common ancestors with vampires, humans, shifters, and witches. They were cursed by an Old God, granting inherent fire resistance and heightened cognitive creativity. After the Sundering they migrated north, blaming human rune magic for the cataclysm.",
+          "Trade with the Korrathis Imperium is strictly land-only. Trade with Ashenmoor is maintained through regulated Rune Doors."
+        ] },
+        { h: "Environment, Soundscapes & Pragmatism", text: [
+          "The climate stratifies with altitude: lowlands feature temperate rainstorms; mid-slopes carry thick fog and light snow; high peaks endure heavy snow. With zero ambient Aether the world feels earth-like — natural wind, bees, and birdsong mixed with distant Gnomish forge hammers.",
+          "The Reach holds strict neutrality toward both the Rebellion and the Imperium. Asylum or extradition for rebels is decided purely on regional benefit."
+        ] },
+        { h: "Native Abilities & Technology", text: [
+          "Zero ambient Aether leaves all four races with zero innate magical aptitude. Inherited fire resistance and heightened cognitive functions drive rapid technological innovation: heavy industrial mechanics, steam power, complex gearwork, hydraulic lifts, blast furnaces, non-magical siege defenses, and automated watchtowers along the borders."
+        ] },
+        { h: "Architectural Lighting, Atmospheric Saturation & Sensory Detail", text: [
+          "Gloomforge Deep is lit by thermal luminescent crystal conduits and amber furnace glares. The Pass-Gate Ramparts use heavy brass oil lanterns. Oakhaven runs on low peat fires and warm glass oil lamps.",
+          "The air is dense and crisp, devoid of any Aether hum. Sub-zero mountain winds at high elevations contrast sharply with the intense geothermal warmth, wet soot, and hot iron scent inside the subterranean tunnels. At Peakhold Crag high winds and raptor calls overlay steam-piston pulses; in the lowland valleys the sound is mountain streams, clover-bees, and gentle rain on thatched roofs."
+        ] },
+        { h: "Cultural Traditions & Daily Life", text: [
+          "The Four-Race Synergy is a practical trade loop: Halflings supply grain, vegetables, and meats while Gnomes and Orcs provide heavy machinery, masonry supports, and iron tools.",
+          "The Forge-Kindling is an annual harvest-end festival where smiths handle white-hot iron with bare hands, using their innate fire resistance, alongside lowland banquets. The Grand Exchange is a seasonal trade fair at the Pass-Gate Ramparts for trade, labor contracts, and legal resolutions.",
+          "Cuisine follows the altitude: spiced mountain goat and subterranean mushroom ale in the peaks; rich vegetable stews, smoked trout, and berry wine in the lowlands."
+        ] },
+        { h: "The Quad-Council", list: [
+          "Arch-Engineer Vane (Gnome Delegate) — Overseer of Gloomforge Deep; manages furnace production, efficiency, and the Ashenmoor Rune Door link",
+          "Warmaster Throk (Orc Delegate) — Commander of Peakhold Crag; maintains northern coastal watches and regional defense",
+          "Warden-General Korra (Half-Orc Delegate) — Leader of Pass-Gate garrisons; oversees rebel asylum/extradition, trade routes, and border patrols",
+          "Speaker Bramblewick (Halfling Delegate) — Head of Oakhaven Assemblies; coordinates grain supply, lowland economy, and internal trade"
+        ] }
+      ]
+    }
+    // ,{
+    //   key: "newcity", plane: "dornalis", name: "City name",
+    //   tagline: "One line shown on its card.",
+    //   travel: "How to get there — shown on its card too.",
+    //   ruler: "Optional — delete this line if it has none.",
+    //   color: "#c9a0ff",
+    //   sections: [
+    //     { h: "A heading", text: ["A paragraph.", "Another paragraph."] },
+    //     { h: "Another heading", list: ["A short item.", "Another short item."] }
+    //   ]
+    // }
+  ],
+
+  calendars: [
+    { plane: "dornalis", label: "Korrathis",     color: "#f0c078", moons: "Nyxara and Soltera", week: "7 days", month: "35 days", months: "10", year: "350 days", seasons: "Five" },
+    { plane: "alathia",  label: "Alathia",       color: "#a4d99e", moons: "Thalessiel, Vaelora, Miraeth, Fenlyr, Aurelith", week: "9 days", month: "36 days", months: "8", year: "288 days", seasons: "Four, of uneven length" },
+    { plane: "krag",     label: "Krag Doss Ner", color: "#e08a5f", moons: "Bronnvar", week: "5 days", month: "35 days", months: "12", year: "420 days", seasons: "Four" }
+  ],
+  calendarNotes: [
+    "Krag Doss Ner names its months after minerals, and its moon Bronnvar marks four seasonal festivals.",
+    "The Dawns, the universal dating system, follow Korrathis's calendar by treaty."
+  ],
+
+  lore: [
+    // ---------------- Dornalis ----------------
+    { id: "dornalis", plane: "dornalis", cat: "Lands", name: "Dornalis",
+      text: ["Dornalis is a plane: a separate reality with its own universe, its own physics, its own moons, and its own calendar. It holds about ten landmasses. The books have charted only a few of them."] },
+    { id: "korrathis", plane: "dornalis", cat: "Lands", name: "Korrathis",
+      text: ["The empire's continent. The Korrathis Imperium rules from here, and an independent nation shares the landmass with it."] },
+    { id: "karthmore", plane: "dornalis", cat: "Lands", name: "Karthmore", pron: "Car-th-more",
+      text: [
+        "An arcanepunk metropolis inside the Korrathis Imperium, and the setting of the series. Evelyn Reed works here, at the Glass-Binders Guild.",
+        "Rebels reach the city through chalk doors. Its laws fill forty-five articles, and at least one character can quote them word for word."
+      ] },
+    { id: "ashenmoor", plane: "dornalis", cat: "Lands", name: "Ashenmoor",
+      text: ["The vampire continent. It shares its origin with Korrathis: the Sundering once split a single supercontinent into the two lands."] },
+    { id: "sundering", plane: "dornalis", cat: "Lands", name: "The Sundering",
+      text: ["A prehistoric event that split a supercontinent into two: the continent of Korrathis and the continent of Ashenmoor."] },
+    { id: "thessivane", plane: "dornalis", cat: "Lands", name: "Thessivane",
+      text: [
+        "Beautiful name, dangerous reality. Korrathis knows the continent exists and has neither explored nor conquered it.",
+        "Dense forest fills the centre and reaches parts of the coast. Open plains and clearings break it up, hot springs lie in the northwest, and a single significant mountain range rises from the largely flat land."
+      ] },
+    { id: "far-lands", plane: "dornalis", cat: "Lands", name: "Beyond the charts",
+      text: [
+        "Kalûdesh is a desert continent of nomadic peoples.",
+        "Oluven is an island chain. Each small island holds a single settlement, boats and bridges link them, and the large central island holds the capital.",
+        "Ercanthis is a civilization as advanced as Korrathis, or more so. Its open grasslands hold only three cities: the City of Law, which rules; the City of Order, which handles commerce and work; and the City of Guilds, where guilds and gangs mingle in chaos.",
+        "About four more landmasses have no name yet."
+      ] },
+
+    { id: "rebellion", plane: "dornalis", cat: "Powers and peoples", name: "The Rebellion",
+      text: ["A movement that slips into Karthmore through chalk doors. Its ranks run commander, captain, soldier. Its public leader is Remus Wolfgar Mathews."] },
+    { id: "named-powers", plane: "dornalis", cat: "Powers and peoples", name: "Other names to know",
+      text: ["The Greek Olympian Syndicate. The Norse Aesir and Vanir. The Aztec Obsidian Cartel. The Order of the Hunt, a cult that hunts angels."] },
+    { id: "witches", plane: "dornalis", cat: "Powers and peoples", name: "Witches and Warlocks",
+      text: ["Two races with battle-mage and healer histories. Witches wear deep plum-purple robes stitched with silver sigils."] },
+
+    { id: "velo-script", plane: "dornalis", cat: "Ideas", name: "Velo-Script doors",
+      text: ["Magical doors between planes. They do not carry you across space. They move you from one reality into another. Alathia and Krag Doss Ner can be reached no other way."] },
+    { id: "law", plane: "dornalis", cat: "Ideas", name: "Karthmore's law code",
+      text: ["Forty-five articles, in formal legal-citation style, across six titles:"],
+      list: ["Governance", "Guild Law", "Property", "Citizenship", "Commerce", "Criminal Law"] },
+    { id: "dawns", plane: "dornalis", cat: "Ideas", name: "The Dawns",
+      text: ["The universal dating system. It follows Korrathis's calendar by treaty."] },
+
+    // ---------------- Karthmore's Districts ----------------
+    { id: "d-nexus", plane: "dornalis", cat: "Districts", name: "The Nexus",
+      text: ["The most diverse district in the city, alongside the Warrens — every recognized race keeps a recorded presence here. Humans, Halflings, Kitsune, and Centaurs all call it home, and it is where Kitsune data-brokers and entertainers are most often found."] },
+    { id: "d-warrens", plane: "dornalis", cat: "Districts", name: "The Warrens",
+      text: ["High-diversity, low-ceremony. Lyra's coffee shop sits here, alongside a visible Oni population and the city's least documented residents — the Changelings, whose numbers the Commission can only guess at, and the Cold Pockets, sections where failed cooling-runes left the temperature permanently wrong and the Wendigo-kin now live."] },
+    { id: "d-scriptum", plane: "dornalis", cat: "Districts", name: "The Scriptum",
+      text: ["Archive and record-keeping country. High Elves move through it like they own it — several do — alongside a Drow population and the Automata who staff its archive systems with perfect accuracy and no editorial opinion at all."] },
+    { id: "d-crown-apex", plane: "dornalis", cat: "Districts", name: "Crown Apex",
+      text: ["Old money, fortified and windowless. Vampires, Nephilim, and Gargoyles hold this district, which runs on clean, high-vibration Velo-Script and sees very little street-level enforcement."] },
+    { id: "d-aether-wharf", plane: "dornalis", cat: "Districts", name: "Aether-Wharf",
+      text: ["Freight and water. Orcs and Half-Orcs form its backbone, Kappa handle water purification and waste management, Selkies pilot from the submerged Wet-Docks, and Minotaurs move cargo through its high-ceilinged warehouses."] },
+    { id: "d-anvil-loom", plane: "dornalis", cat: "Districts", name: "Anvil & Loom",
+      text: ["Forge country. Dwarves work it with Graft-Beards — conductive filaments woven into their facial hair to ground lightning while working runes — and Golems rest here in Charging Racks when not active."] },
+    { id: "d-working", plane: "dornalis", cat: "Districts", name: "The Working District",
+      text: ["The city's middle-class hub: Humans, Gnomes, Dwarves, and Golems, doing the precision technical work — mana-dye handling, accounting, the trades that keep everything else running."] },
+    { id: "d-iron-ring", plane: "dornalis", cat: "Districts", name: "The Iron Ring",
+      text: ["Lycans staff its tracking units, and Tengu work it as courier-scribes and martial arts instructors — fast, precise, and not particularly interested in conversation."] },
+    { id: "d-verdant", plane: "dornalis", cat: "Districts", name: "The Verdant",
+      text: ["Farmland. Wood Elves work its planes almost exclusively, and Satyrs and Fawns are frequently found here, on and off the clock."] },
+    { id: "d-fringe", plane: "dornalis", cat: "Districts", name: "The Fringe",
+      text: ["Black-market country. Tanuki are almost professionally involved in trade that leaves no paper trail, Devils keep their contract-arbitration offices here, Demons do the work Devils consider beneath them, and Valravn gather in its high-perch rafters as assassins and spies."] },
+    { id: "d-sanctuary", plane: "dornalis", cat: "Districts", name: "The Sanctuary",
+      text: ["Angels work its high guard and advise the Senate on planar matters. Dryads and Nymphs are bound to its Life-Arches in the hospitals, Homunculi assist in its Marrow-Clinics, and Witches run clinics and small magical schools from here."] },
+    { id: "d-under-city", plane: "dornalis", cat: "Districts", name: "The Under-City",
+      text: ["Beneath the Fringe, where the architecture is less regulated and the smell of sulfur is considered ambient. Demons live here."] },
+    { id: "d-conduit", plane: "dornalis", cat: "Districts", name: "The Conduit",
+      text: ["Banshees operate the city's runic telegraph arrays from here — a pairing that suits everyone, since it keeps them and their vocal abilities well clear of residential areas. Jinn favor its heat."] },
+
+    // ---------------- Alathia ----------------
+    { id: "alathia", plane: "alathia", cat: "Places", name: "Alathia", pron: "Uh-LAY-thee-uh",
+      text: [
+        "An elvish plane with five moons: Thalessiel, Vaelora, Miraeth, Fenlyr, and Aurelith. If Karthmore is a city that bends the multiverse to its will, Alathia is a city that asked nicely and was welcomed in.",
+        "You reach Alathia only through a Velo-Script door."
+      ] },
+    { id: "eldralore", plane: "alathia", cat: "Places", name: "Eldralore", pron: "El-druh-lore",
+      text: ["The forest that holds Sylvaren, built into and around twelve ancient trees massive enough to house entire districts within and around their trunks. Nearly three miles of walkways, bridges, and paths connect every level, soft underfoot but firm — everything here was grown before it was built, and it shows."] },
+    { id: "sylvaren", plane: "alathia", cat: "Places", name: "Sylvaren", pron: "Sil-VAR-en",
+      text: [
+        "The solarpunk city of Alathia, rising from the forest floor to above the canopy in tiers of living wood, quartz, and a light blue glass that catches and holds light like the city itself is breathing.",
+        "The lower tiers, close to the forest floor and near dark, are Drow territory. The middle tiers, deep in the canopy's green light, hold the Wood Elves. The upper tiers break above the treeline into open sky, home to High Elves and Angels who want to live closest to the light and the wind. None of this is a hierarchy — anyone may live anywhere; the tiers are preference, not rank."
+      ] },
+    { id: "alathia-senses", plane: "alathia", cat: "What it feels like", name: "The air, the smell, the sound",
+      text: [
+        "Alathia adjusts to whoever is standing in it. The Aether in its air reads the body it surrounds and offers exactly what that body needs — a dwarf might feel a forge-room hundred degrees while a human beside them feels a perfect seventy-five. Open your mouth and it is hot and dry, like a desert at noon; breathe it in and it turns cool and green, like a forest after rain.",
+        "The smell is layered and personal. Everyone gets cinnamon and lavender from the open air. Elves smell maple smoke without fire. Angels smell burnt wood and fresh sap. Karthmore citizens, their senses dulled by years of Lead-Runic Shielding, smell nothing from the trees at all — the city offers what it recognizes in you, and gives nothing back if it finds nothing.",
+        "The sound is two cities at once: birdsong and swaying leaves underneath, sandals on wooden walkways and the groan of bridges above, and cutting through both, the sweep of angel wings passing overhead. Karthmore hums and clangs and shouts. Alathia breathes."
+      ] },
+    { id: "alathia-day-night", plane: "alathia", cat: "What it feels like", name: "Day and night",
+      text: [
+        "Alathia does not sleep. It changes shifts. By day the High Elves and Angels fill the upper tiers and open walkways, and the quartz scatters the sun across the canopy. By night the blue glass stops catching light and starts generating it, small lanterns turn every bridge into something like a constellation, and the Drow come out — apothecaries, enchanters, witches, and merchants moving door to door through the lower and middle tiers, selling from lantern-lit carts. The daytime city is grand and open. The nighttime city is intimate and warm. Both are Alathia."
+      ] },
+    { id: "the-gift", plane: "alathia", cat: "Ideas", name: "The Gift and the Passport",
+      text: [
+        "Every elf born in Alathia carries the Gift — an innate connection to the Aetherial plane allowing natural planar travel with no door frame at all. It is older than Velo-Script and requires nothing but the elf themselves.",
+        "The Gift survives travel and distance. What kills it is a man-made door: the Lead-Runic Shielding in Karthmore's metal frames filters out Aetherial Mana, and that filtration disrupts the Gift at a cellular level, permanently. Chalk doors, which let the Aether flow unfiltered, carry no such risk.",
+        "This is why every elf leaving Alathia carries papers, tracked by a small collective — not border control, but care. An elf who returns having lost the Gift finds the city already adjusting for them: new work, new income, no judgment."
+      ] },
+    { id: "alathia-government", plane: "alathia", cat: "Ideas", name: "Government",
+      text: ["Alathia has no senate, no noble houses, and no guilds. A small collective of elves tracks who leaves, who returns, and what they need when they come back. That is the entirety of their mandate — no political power in the traditional sense, just records and help."] },
+    { id: "alathia-relations", plane: "alathia", cat: "Relations", name: "Karthmore, Krag Doss Ner, and the Rebellion",
+      text: [
+        "Alathia and Karthmore keep open relations and free travel, though the tension lives in the forest: Karthmore logs several hundred miles from Eldralore's outer edge, close enough to concern Alathia and far enough to be tolerated. When Karthmore tests the boundary further, Alathia stops them — quietly, firmly, without escalation. Nobody in Karthmore's military wants a fight with a city of elves who need no door and angels who carry swords of fire.",
+        "Alathia's warmest relationship is with Krag Doss Ner. The two share a chalk door between two identical pubs, one in each city, unofficial and open to any citizen of either.",
+        "Alathia takes no side in Karthmore's rebellion. What it does is leave the forest open — Eldralore is a sanctuary for Rebellion forces, on the single unwritten condition that no harm comes to Alathia itself."
+      ] },
+    { id: "alathia-different", plane: "alathia", cat: "Relations", name: "What makes Alathia different",
+      text: ["There is no crime here worth recording, no political factions, no debt system, no Marrow-Tax. The only real tension Alathia carries is the tension of standing still — a city that has decided what it is, and treats every new door or expanded district as a threat to be weighed rather than a goal to chase."] },
+
+    // ---------------- Krag Doss Ner ----------------
+    { id: "krag-doss-ner", plane: "krag", cat: "Places", name: "Krag Doss Ner", pron: "Krag-doss-NEER",
+      text: [
+        "A dwarvish plane with a single moon, Bronnvar. If Alathia is a city that grew, Krag Doss Ner is a city that was carved — built into, under, and across a plane of nothing but mountains, valleys, and active volcanoes.",
+        "There is no sun and no day-night cycle: the sky simply glows a permanent red, from a chemical reaction between volcanic output and centuries of mining. You reach Krag Doss Ner only through a Velo-Script door."
+      ] },
+    { id: "khul-dar-ness", plane: "krag", cat: "Places", name: "Khul-Dar-Ness", pron: "Khuul-DAR-ness",
+      text: [
+        "The steampunk city of Krag Doss Ner. From a distance it reads as dark stone towers on the mountainsides — watch-posts and warehouses, not where the city actually lives. That's below, in a natural cavern half a mile in volume, built around rather than reshaped, so the city feels ancient before it feels built.",
+        "Nothing here runs vertical. Most buildings hold to three stories, spreading wide across the cavern floor; guild halls and government buildings push to five. Brass and copper pipes run along every wall, carrying volcanic heat up from the power level, and the ground is cut stone, worn smooth by centuries of boots and cart wheels."
+      ] },
+    { id: "krag-senses", plane: "krag", cat: "What it feels like", name: "The smell, the sound, the ale",
+      text: [
+        "Krag Doss Ner announces itself by smell before anything else: copper and zinc, a faint sweetness of refined gold, and the warm wet heaviness of steam through the pipes. The sound is relentless — hammers, hissing steam, the mine-cart network, market chatter, and somewhere, always, the creative profanity of a dwarf whose forge isn't cooperating.",
+        "The ale is brewed in vats of Aethrium, a metal forged from processed solid Aether, and it tastes different to whoever is drinking it — the metal reads the drinker the way Alathia's air does. It is, incidentally, the reason ale tax evasion is the city's most persistent legal problem."
+      ] },
+    { id: "krag-rhythm", plane: "krag", cat: "What it feels like", name: "No day, no night",
+      text: ["The blue lights never dim. People sleep when they're tired and work when they're ready, and the guild council manages resources, not schedules. The quiet periods — forges cold, only the markets and mines running — are when the city looks most alive: people wandering, drinking, existing in the space rather than working through it."] },
+    { id: "krag-government", plane: "krag", cat: "Ideas", name: "The Guild Council",
+      text: ["Krag Doss Ner runs on a guild council that actually functions: the Mining Guild decides when to dig deeper, the Builders Guild decides when a bridge is needed, the Farming Guild manages the grow levels. No Noble Houses, no Iron-Tape Commission burying decisions in litigation. Crime is close to nonexistent — in a plane where diamonds are as common as gravel, there's nothing worth stealing."] },
+    { id: "krag-doors", plane: "krag", cat: "Ideas", name: "Doors, ore, and the 24-hour leash",
+      text: [
+        "Krag Doss Ner's doors reach other planes, including Karthmore, whose economy runs on its ore. Karthmore is permitted exactly 500 pounds a week — three minecarts. Not a compromise. A leash, and both sides know it.",
+        "Karthmore citizens get 24 hours inside Krag Doss Ner, no extensions, checked against Karthmore's own citizen registry — a city built by its people, with no interest in outside political structures absorbing it, and even less interest in importing Karthmore's attitude toward other planes."
+      ] },
+    { id: "krag-relations", plane: "krag", cat: "Relations", name: "Alathia and the Rebellion",
+      text: [
+        "Krag Doss Ner's warmest relationship is with Alathia — the same shared chalk door, unofficial on both sides. Where Krag Doss Ner is carved downward into rock, Alathia is built upward into wood; the instinct underneath is identical.",
+        "When the Rebellion comes looking for weapons, Krag Doss Ner occasionally obliges — not out of solidarity, but the quiet satisfaction of annoying Karthmore. They take no side and see no reason not to profit slightly from the whole situation."
+      ] },
+    { id: "krag-different", plane: "krag", cat: "Relations", name: "What makes Krag Doss Ner different",
+      text: ["A city of makers that isn't trying to be anything other than what it is: loud, warm, slightly smoky, and completely at peace with itself. Nobody who lives here is in a hurry to leave, and nobody who visits on a 24-hour pass ever quite feels like they saw enough."] },
+
+    // ---------------- Orrethis Heptavane (not a door — nobody survives to map it) ----------------
+    { id: "orrethis-heptavane", plane: "dornalis", cat: "The Wider Multiverse", name: "Orrethis Heptavane", pron: "The Orrery of Seven Vanes",
+      text: [
+        "Known titles: The Orrery of Seven Vanes, The Sevenfold Orrery, The Enclosing Armillary. Multiversal status: Unmapped / Extreme Hazard (High Aether Saturation).",
+        "Formally recorded in ancient archives as Orrethis Heptavane, translating in planar dialects to \"The Orrery of Seven Vanes.\" To outside observers and astronomers the plane visually resembles a massive, nested Dyson sphere. Mechanically it functions as an Armillary Realm — a dynamic framework of interlocking, ring-shaped pocket domains pivoting around a motionless central Aether core.",
+        "Mortal scholars assign temporary \"Homeworld [Letter]\" designations to newly discovered planes until local names are learned. Because Orrethis Heptavane’s extreme Aether saturation makes long-term survival impossible, no mortal explorer ever survived to survey it or learn its native name. Imperial cartographers list it simply as The Enclosing Armillary or Orrethis Heptavane.",
+        "The realm consists of seven distinct ring-realms rotating around a motionless center. The Stasis Core is a motionless sphere of raw Aether where time stands completely still. Standers do not age, heal, or consume external time. It serves as the ultimate neutral arena for Celestial and Infernal factions to fight grand battles without burning time on their home planes. From the outside it is blindingly radiant due to massive Aether venting; standing on its surface it is strangely dark and light-absorbent.",
+        "Seven rings turn around that core, each one home to a different people:"
+      ],
+      list: [
+        "Rings 1 & 2 — The Celestial Dominions (Angels & Nephilim): Modeled after classic Biblical depictions of Heaven. Gold-paved avenues, alabaster peaks, crystal seas, ivory sanctuaries, and high-altitude basilicas designed for winged transit",
+        "Rings 3 & 4 — The Infernal Depths (Devils & Demons): Modeled after traditional Biblical hellscapes. Basalt mountains, lakes of liquid fire and brimstone, sulfur skies, and oppressive obsidian fortresses",
+        "Ring 5 — The Primordial Domain (Jinn): Modeled after Islamic and Middle Eastern Jinn lore. Shifting deserts of golden sand, howling tempests of smokeless fire, and floating palaces of seamless brass, copper, and colored glass",
+        "Ring 6 — The Dead Ring (The Open Warzone): A stripped, lifeless ring completely destroyed by past conflicts. Serves as an unpopulated, open warzone for full-scale military campaigns",
+        "Ring 7 — The Burning Ring (The Rebuilding Zone): A heavily scarred domain undergoing massive structural reclamation, where multi-species workforces rebuild broken infrastructure"
+      ] },
+    { id: "orrethis-aether", plane: "dornalis", cat: "The Wider Multiverse", name: "Living in a hostile paradise",
+      text: [
+        "The realm is saturated with raw Aether. Unadapted mortal races suffer rapid Aetheric poisoning and die. External immortals — such as Vampires — quickly become sick, decay, and perish if they attempt to remain. The physical forms, supernatural gifts, and distinct features of Angels, Nephilim, Devils, Demons, and Jinn are evolutionary adaptations resulting from millennia of absorbing this high-density energy.",
+        "Each populated ring acts as a tailored paradise for its native species, providing effortless, invigorating living conditions. To non-natives these same environments feel like literal hell or blinding, suffocating radiation.",
+        "Natives possess an internal compass that always pulls toward their home ring. Traversing a foreign ring induces severe physical agony and sensory distress, making movement nearly impossible for physical beings. Because Jinn exist natively in non-corporeal forms (smokeless fire and elemental energy), they lack physical flesh to degrade and navigate foreign rings without agony — making them premier scouts, spies, and couriers.",
+        "When a rotating ring aligns with an outside plane, a transit bridge opens for at most one hour. Anyone stranded after the window closes who jumps off the edge faces two unpredictable outcomes: a planar drop that lands them randomly on a completely unknown plane, or the unknown endless fall through the unmapped void."
+      ] },
+    { id: "orrethis-culture", plane: "dornalis", cat: "The Wider Multiverse", name: "Culture, factions, and leadership",
+      text: [
+        "Celestial rings emphasize order, sacred rituals, and divine hierarchy. Infernal rings revolve around martial dominance, feudal pacts, and legalistic contracts. The Primordial ring centers on elemental freedom and artistic mastery. Specific domestic traditions and daily habits remain entirely unrecorded in mortal archives due to the impossibility of long-term observation by outside scholars.",
+        "Each ring is ruled by a supreme authority known to outsiders as a Ring Leader. They act as absolute rulers and planar ambassadors. Any outsider seeking passage across a ring must obtain the explicit blessing and warding of its Ring Leader to avoid dying to the environment.",
+        "Organized labor unions, trade guilds, and mercenary houses do not exist. Because all natives are immortal, individuals have infinite time to achieve self-mastery in skills like smithing or architecture without needing instructional guilds. Labor is rendered through oath, fealty, or direct contract."
+      ] },
+
+    // ---------------- Shensora, the Spirit Realm ----------------
+    { id: "shensora", plane: "shensora", cat: "Places", name: "Shensora",
+      text: [
+        "Open plains and gentle rolling hills lead into a snowy mountain range, which flows down into subterranean tunnels, deep ravines, and crystal-lit caverns — and four very different peoples have settled each layer of it.",
+        "The Meadow-Sprawl & Terraced Valleys (Kitsune & Tanuki): dozens of small, cozy villages scattered across open plains, flower meadows, and hill country. Sprawl terrace farms stepped into the hillsides sit alongside one- to two-story timber-frame buildings and earth-sheltered, Hobbit-hole style homes connected by simple dirt footpaths.",
+        "The Outer Citadel & Mountain Halls (Oni & Tengu): a massive fortress carved directly into the mountain face. Towering hand-carved stone pillars and massive dark gates open into deep stone halls, vaulted ceilings, and fortified mountain structures.",
+        "The Crystal Ravines & Subterranean Runways (Kappa): long, winding tunnel networks branching deep under the mountains into massive ravines. Giant, naturally growing crystals cast light across cavern walls, stone platforms, and wooden suspension bridges spanning a clear river.",
+        "The Upside-Down Sub-Realm (Changelings): a sub-plane occupying the exact same physical coordinates as the realm, but inverted. Travelers walk across dense cloud layers with mountains and subterranean structures hanging suspended above them."
+      ] },
+    { id: "shensora-senses", plane: "shensora", cat: "What it feels like", name: "Air, sound, and food",
+      text: [
+        "Atmospheric density, weather patterns, and riverways closely mirror the baseline environment of Alathia.",
+        "Meadows carry gentle warm breezes, songbirds, and buzzing bees. Mountains howl with wind and crunching snow, and every minute colossal bells ring from some unknown high-altitude source. Ravines echo with footsteps, creaking wooden bridges, and the rhythmic clanking of iron chains.",
+        "Food stays culturally distinct and does not physically transform outsiders who eat it. Meadow villages offer meats, farm produce, honey, and eggs; the mountain fortress relies heavily on red meats and alcohol; the crystal depths cultivate herbs and mushrooms and trade them surface-bound for spices and meats."
+      ] },
+    { id: "shensora-rhythms", plane: "shensora", cat: "What it feels like", name: "Day and night",
+      text: [
+        "Shensora operates on the exact same calendar and day/night cycle as Alathia. The two are linked by close orbital proximity within planar space, similar to divine planets sharing a closely connected orbital plane."
+      ] },
+    { id: "shensora-government", plane: "shensora", cat: "Ideas", name: "Three governments, one realm",
+      text: [
+        "Jurisdiction is strictly regional under normal conditions, but a fugitive fleeing into a neighboring zone triggers cross-border law enforcement cooperation.",
+        "The Meadow-Sprawl is governed by a Village Council of local community leaders. The Outer Citadel is a strict Monarchy. The Crystal Ravines are governed as a Bicameral Republic featuring two elected citizen bodies that pass laws and oversee regional justice."
+      ] },
+    { id: "shensora-aether", plane: "shensora", cat: "Ideas", name: "What the air does to you",
+      text: [
+        "High concentrations of raw Aether permeate the air and ambient environment. Over generations, absorbing this raw atmospheric Aether mutated native populations from localized subspecies into entirely distinct magical races, granting native shapeshifting, illusion craft, and physical resilience. It is the same logic behind Orrethis Heptavane’s rings, at a gentler, survivable dose.",
+        "Entering Shensora is hazardous for humans — equivalent to walking into Chernobyl without a hazmat suit because of atmospheric Aether toxicity. Travel from Karthmore is heavily regulated. Planes like Alathia and Krag Doss Ner have unrestricted access, though entry destination within the realm is managed (meadow portals allow immediate entry; mountain fortress entry requires up to one week’s notice). Shensora residents face no restrictions leaving their home plane and travel across worlds at will."
+      ] },
+    { id: "shensora-relations", plane: "shensora", cat: "Relations", name: "The non-hostility pact",
+      text: [
+        "Interactions with Karthmore are strictly limited to travel and transit. There is zero trade conducted with Karthmore, and military presence or militarization of any kind is entirely forbidden within Shensora. Travelers from Karthmore are granted entry solely on the condition that they honor an explicit non-hostility pact; any violation immediately revokes travel privileges.",
+        "The Rebellion fully respects Shensora’s non-aggression agreement and refuses to conduct military operations, skirmishes, or rebellion business on Spirit Realm soil. Rebellion members are permitted to pass through, purchase local supplies, and buy food, provided they cause no harm to the inhabitants or the environment. Local regional governments tolerate the Rebellion’s presence strictly under these conditions — any breakdown in order or violence results in immediate expulsion."
+      ] },
+    { id: "shensora-different", plane: "shensora", cat: "Relations", name: "What makes Shensora different",
+      text: [
+        "The defining feature of Shensora is its atmospheric saturation of raw Aether. Unlike planes where magic is locked in the earth or drawn through subtle ley lines, the air itself here is a potent, transformative force — capable of actively mutating, shaping, and altering the biological nature of the beings who dwell within it over time."
+      ] }
+  ],
+
+  cast: [
+    { name: "Evelyn Reed", kind: "Human", text: "A Glass-Binders Guild assistant who did not plan on becoming interesting to a rebellion. Protagonist of the primary series." },
+    { name: "Corven Cain", kind: "Vampire", text: "A 113-year-old war veteran and the unclaimed Governor of Ravenscourt. He has his own companion series, and he will happily cite the relevant law." },
+    { name: "Thessaly Ravenscourt", kind: "Pureblood vampire", text: "Potentate of House Ravenscourt. She has held both the Governor's seat and the Potentate's, and she will fight politically and physically to keep them." },
+    { name: "Lyra", kind: "Drow-kin", text: "Owns a coffee shop in the Warrens and is Evelyn's close companion." },
+    { name: "Remus Wolfgar Mathews", kind: "", text: "The charismatic public leader of the Rebellion. He gives a very good speech." },
+    { name: "Verin Thorn", kind: "Shifter", text: "A war buddy turned rival gang leader." },
+    { name: "Moriel Hollowyn", kind: "Half-Drow, half-Witch", text: "An apothecary whose shop sits on contested gang territory, which is hard on business and harder on sleep." }
+  ],
+
+  // The Registry page is written as a public notice from the city itself.
+  registry: {
+    issuer: "The Iron-Tape Commission",
+    title: "The City Registry: A Demographic Overview",
+    posted: "Published by the Iron-Tape Commission. Current census cycle.",
+    intro: [
+      "The city is home to thirty-nine recognized sapient races, with Humans comprising the largest single demographic at 42% of the total population. The remaining 58% is distributed across mortal, planar, folkloric, artificial, and cryptid classifications.",
+      "Highest diversity: the Warrens and the Nexus. Every recognized race has a recorded presence in both. Lowest diversity: the Sanctuary and the Conduit, both of which operate with highly specialized resident populations aligned to their function. The middle-class hub is the Working District, predominantly Humans, Gnomes, Dwarves, and Golems."
+    ],
+
+    // CENSUS TABLE: percent of population, primary district, and social class,
+    // in the order they should print. Add a row the same way you'd add any
+    // other list item here.
+    census: [
+      { race: "Humans", pct: "42.0%", district: "The Nexus", cls: "Middle" },
+      { race: "Orcs / Half-Orcs", pct: "10.5%", district: "Aether-Wharf", cls: "Lower" },
+      { race: "Dwarves", pct: "8.0%", district: "Anvil & Loom", cls: "Lower / Middle" },
+      { race: "Elves (High)", pct: "3.5%", district: "The Scriptum", cls: "Upper" },
+      { race: "Golems", pct: "3.5%", district: "Anvil & Loom", cls: "N/A" },
+      { race: "Gnomes", pct: "2.5%", district: "Working District", cls: "Middle" },
+      { race: "Lycans", pct: "2.5%", district: "The Iron Ring", cls: "Lower / Middle" },
+      { race: "Elves (Drow)", pct: "2.5%", district: "The Scriptum", cls: "Middle" },
+      { race: "Oni", pct: "2.0%", district: "The Warrens", cls: "Lower" },
+      { race: "Halflings", pct: "1.5%", district: "The Nexus", cls: "Middle" },
+      { race: "Witches", pct: "1.2%", district: "The Sanctuary", cls: "Mixed" },
+      { race: "Vampires", pct: "1.2%", district: "Crown Apex", cls: "Upper" },
+      { race: "Automata", pct: "1.2%", district: "The Scriptum", cls: "N/A" },
+      { race: "Jinn", pct: "1.1%", district: "The Conduit", cls: "Middle" },
+      { race: "Elves (Wood)", pct: "1.0%", district: "The Verdant", cls: "Lower / Middle" },
+      { race: "Kitsune", pct: "1.0%", district: "The Nexus", cls: "Middle" },
+      { race: "Satyrs / Fawns", pct: "1.0%", district: "The Verdant", cls: "Lower" },
+      { race: "Angels", pct: "0.8%", district: "The Sanctuary", cls: "Upper" },
+      { race: "Centaurs", pct: "0.8%", district: "The Nexus", cls: "Lower / Middle" },
+      { race: "Kappa", pct: "0.8%", district: "Aether-Wharf", cls: "Lower" },
+      { race: "Tanuki", pct: "0.8%", district: "The Fringe", cls: "Middle" },
+      { race: "Devils", pct: "0.7%", district: "The Fringe", cls: "Middle / Upper" },
+      { race: "Tengu", pct: "0.7%", district: "The Iron Ring", cls: "Middle" },
+      { race: "Minotaurs", pct: "0.6%", district: "Aether-Wharf", cls: "Lower" },
+      { race: "Selkies", pct: "0.6%", district: "Aether-Wharf", cls: "Lower / Middle" },
+      { race: "Demons", pct: "0.5%", district: "The Fringe", cls: "Middle" },
+      { race: "Banshees", pct: "0.5%", district: "The Conduit", cls: "Lower / Middle" },
+      { race: "Dryads / Nymphs", pct: "0.5%", district: "The Sanctuary", cls: "Middle" },
+      { race: "Nephilim", pct: "0.4%", district: "Crown Apex", cls: "Upper" },
+      { race: "Gargoyles", pct: "0.4%", district: "Crown Apex", cls: "Middle" },
+      { race: "Homunculi", pct: "0.4%", district: "The Sanctuary", cls: "Lower" },
+      { race: "Changelings", pct: "0.3%", district: "The Warrens", cls: "Lower" },
+      { race: "Valravn", pct: "0.3%", district: "The Fringe", cls: "Lower / Middle" },
+      { race: "Wendigo-kin", pct: "0.2%", district: "The Warrens", cls: "Lower" },
+      { race: "Miscellaneous", pct: "4.5%", district: "Various", cls: "Mixed" }
+    ],
+    censusNote: "The Commission's miscellaneous line covers small, mixed, or unregistered populations. [The source table's miscellaneous breakdown didn't come through clean — paste it again if you want it itemized.]",
+
+    tiers: [
+      { name: "The Gold Two Percent", peoples: "Vampires, High Elves, Angels, Nephilim.",
+        text: "These races hold the majority of physical gold in the city. Their districts, Crown Apex and the Sanctuary, run on clean, high-vibration Velo-Script and see very little street-level enforcement activity." },
+      { name: "The Sterling Eighty Percent", peoples: "Humans, Orcs, Dwarves, Drow, Gnomes, Golems.",
+        text: "The industrial engine of the city. These are the residents who pay the Marrow-Tax, operate on the digital grid, and absorb the consequences when the system fails. Most Matter-Origin Repossessions are executed against members of this tier." },
+      { name: "The Off-Grid Eighteen Percent", peoples: "Tanuki, Kitsune, Lycans, Demons, Wendigo-kin, Changelings.",
+        text: "The Senate has the hardest time tracking these populations. Many operate on barter, Virgin Coordinates, or informal credit." }
+    ]
+  },
+
+  // FIELD GUIDE: an unofficial companion to the Registry. Grouped by folklore
+  // family, in the order the groups should print.
+  fieldGuide: {
+    label: "A Visitor's Field Guide to the Races",
+    byline: "Unofficial. Not published by anyone who would admit to it.",
+    groups: [
+      { group: "The Common Mortal Races", entries: [
+        { name: "Humans", text: "Humans are everywhere, which is either reassuring or exhausting depending on your disposition. Baseline biology, no innate magic — they compensate with wearable runic tech, rings and bracers that do the work their blood won't. Long-term plane exposure leaves its marks: spend enough time in the Conduit and your hair starts holding a static charge. They run the Senate, staff the Commission, and own more small businesses per capita than any other race. If something bureaucratic is happening, a human is probably involved." },
+        { name: "High Elves", text: "High Elves move through the Scriptum like they own it, which several of them technically do. Luminous skin, metallic gold or silver hair, and pupils that shift shape depending on which plane they're looking at. They are the Lexicon Scribes' preferred demographic and the reason the Scriptum feels faintly competitive even on a quiet afternoon." },
+        { name: "Wood Elves", text: "Wood Elves are easiest to spot by the bark-like texture of their skin and eyes that run the full spectrum of an autumn canopy. They work the Verdant farm planes almost exclusively and show up in the Sanctuary when something in the ecology needs fixing. Generally the least interested in city politics of any Elf variant." },
+        { name: "Drow", text: "Drow carry bioluminescent tattoos that glow faintly in low light, a useful trait in the Fringe, where several of them have made careers in the Glass-Eye Agency. Obsidian skin, pale or lavender hair, and a reputation that precedes them wherever they go. Most of it is earned." },
+        { name: "Dwarves", text: "Dwarves are broad, dense, and built for the Anvil. The Graft-Beards are the easiest identifier: conductive filaments woven directly into their facial hair to ground lightning when working runes. Don't comment on them. They know they look unusual. They don't care." },
+        { name: "Gnomes and Halflings", text: "Gnomes and Halflings occupy the precision end of the city's technical workforce. Gnomes tend toward ink-stained skin from handling high-concentrate mana dyes. Halflings look like proportional miniature humans and are almost universally better at accounting than you. Both are significantly more dangerous in a negotiation than they appear." },
+        { name: "Orcs and Half-Orcs", text: "Orcs and Half-Orcs are the backbone of the Wharf and the Ring. The Threshold Calluses, thickened skin across the hands and shoulders from pushing heavy freight through high-pressure doors, are the mark of a working Orc. Lower tusks, slate to olive skin, and a physical presence that tends to clear a path without anyone meaning to step aside." }
+      ]},
+      { group: "The Celestial and Infernal", entries: [
+        { name: "Angels", text: "Angels range from the genuinely terrifying, rings of fire, multiple wings, eyes where eyes shouldn't be, to the quietly unsettling: humanoid figures of white marble and soft light that hover slightly above the floor at all times. They don't touch the ground. Dornalis-Contamination, they call it. They work the Sanctuary's high guard and advise the Senate on planar matters. They are uncommon, they know it, and they carry themselves accordingly. Their true homeland is a ring of Orrethis Heptavane, though few who go looking for it come back to describe it." },
+        { name: "Devils", text: "Devils are impeccably dressed and faintly smell of ozone. Horns kept neat, tails kept still in professional settings. They are the city's preferred contract arbitrators — there is something about having a Devil review an agreement that tends to discourage bad faith. They keep offices in the Fringe and quietly maintain a second presence in Crown Apex that nobody officially acknowledges. Like Angels, they trace their bloodline back to a ring of Orrethis Heptavane." },
+        { name: "Demons", text: "Demons are less polished and more present. Chaotic energy flickers visibly off some of them. They do the dirty work that Devils consider beneath their station, and they live in the Under-City beneath the Fringe, where the architecture is less regulated and the smell of sulfur is considered ambient. Their kind's true home lies in the same distant ring as the Devils' — Orrethis Heptavane." },
+        { name: "Nephilim", text: "Nephilim are what happens when celestial and mortal bloodlines cross. Too symmetrical, too still, with a faint gold or silver glow behind the eyes. They leave glowing footprints that fade after a few seconds. They work as high-end bodyguards and Aether-Calibration specialists and live in the most secure penthouses in Crown Apex. Nobody bothers them. This is intentional. Half a ring of Orrethis Heptavane runs in their blood, whichever side their other half comes from." },
+        { name: "Jinn", text: "Jinn dissolve below the waist into smokeless fire or swirling vapor, and their skin shifts like desert sand or stormcloud depending on mood and lineage. They thrive in the Conduit's heat and run the city's high-speed transit systems faster than any other race is willing to. It's a useful trait for a people whose true home, a ring of Orrethis Heptavane, kills anything with flesh to break down." }
+      ]},
+      { group: "Eastern and Spirit Folklore", entries: [
+        { name: "Kitsune", text: "Kitsune can pass for human when they want to; Veil-Runes hide the ears and tails from casual observation. The number of tails indicates mana capacity — a nine-tail Kitsune in the room is either a very powerful person or someone who very much wants you to think they are. They move through the Nexus and the Scriptum as data-brokers and entertainers, and the Glass-Eye Agency recruits from them heavily." },
+        { name: "Tengu", text: "Tengu are avian-humanoids ranging from fully beaked to long-nosed and winged-cloaked depending on lineage. They staff the Iron Ring as courier-scribes and martial arts instructors. Fast, precise, and not particularly interested in conversation." },
+        { name: "Oni", text: "Oni are large, brightly colored, red, blue, yellow, and carry Kanabo clubs etched with gravity runes that they use with more finesse than the size of the weapon suggests. They live primarily in the Warrens and work heavy machinery in the Anvil. They are louder than most of their neighbors and completely unapologetic about it." },
+        { name: "Kappa", text: "Kappa are turtle-like water-dwellers who handle the Wharf's water purification and a meaningful portion of waste management. Practical, quiet, and happiest when near moving water." },
+        { name: "Tanuki", text: "Tanuki are their Fringe-dwelling counterparts — raccoon-like, portly, and almost professionally involved in black-market trade. If something moved through the Warrens without a paper trail, a Tanuki probably touched it at some point." }
+      ]},
+      { group: "European and Mythic Folklore", entries: [
+        { name: "Vampires", text: "Vampires are the city's old money made flesh. Pale, elegant, pulseless, and almost exclusively concentrated in Crown Apex behind fortified, windowless estates. They have been aristocracy long enough that it stopped being a performance. They simply are. Feeding is a matter of strict biological necessity: small channels within their fangs lead directly to the esophagus, letting blood pass cleanly into the stomach, where the vampire's digestive system breaks it down to extract specific proteins and enzymes. They feed primarily on globulins, roughly 35 to 38 percent — using alpha and beta globulins for the transport of iron, copper, lipids, and fat-soluble vitamins, alongside gamma globulins and inactive coagulation proenzymes like prothrombin and plasminogen." },
+        { name: "Lycans", text: "Lycans run warm: body temperature, scent, and a low-level restlessness that makes humans faintly uncomfortable in enclosed spaces with them. They serve in the Iron Ring's tracking units and live in communal barracks or on the wilder farm planes when they need room. Lunar cycle management is a standard line item in Ring scheduling." },
+        { name: "Satyrs, Fawns, Centaurs, and Minotaurs", text: "Satyrs and Fawns work the Verdant and show up in the Fringe on their time off, which is frequently. Centaurs and Minotaurs handle inter-district heavy transport: Centaurs between the open districts, Minotaurs in the high-ceiling warehouses of the Wharf where the scale of the cargo suits them." },
+        { name: "Dryads and Nymphs", text: "Dryads and Nymphs have skin that mimics their environment: wood grain, water surface, stone face, depending on their elemental origin. They are bound to the Life-Arches in the Sanctuary's hospitals and make up a significant portion of the environmental science workforce on the farm planes." },
+        { name: "Selkies", text: "Selkies live in the Wharf's submerged Wet-Docks and work marine piloting. They shed their sealskins to walk on land, and the skins are kept in locked personal lockers at the dock — losing one is not something the Wharf takes lightly." },
+        { name: "Banshees", text: "Banshees operate the city's runic telegraph arrays from the Conduit, which suits everyone: their vocal abilities and the communication infrastructure are naturally compatible, and it keeps them away from residential areas." },
+        { name: "Gargoyles", text: "Gargoyles live on the rooftops of Crown Apex estates and serve as perimeter defense. Living stone. They don't sleep so much as go still." }
+      ]},
+      { group: "The Artificial and Created", entries: [
+        { name: "Golems", text: "Golems come in clay, stone, and iron variants depending on their intended load. Glowing runes at the joints indicate charge level. When not active they rest in Charging Racks in the Anvil. They do not dream, as far as anyone has been able to determine." },
+        { name: "Automata", text: "Automata are brass and clockwork, integrated so deeply into the Scriptum's archive systems that the distinction between tool and staff has become genuinely unclear. They process, translate, and record with perfect accuracy and zero editorial opinion, which makes them either ideal archivists or slightly unnerving colleagues depending on who you ask." },
+        { name: "Homunculi", text: "Homunculi are small, jar-grown, and look like simplified versions of whoever made them. They assist in the Marrow-Clinics and serve as laboratory scouts in spaces too small for anyone else. They have their own small dwellings within the Sanctuary. Nobody is entirely sure how they feel about their situation. Nobody has formally asked." }
+      ]},
+      { group: "The Cryptid and Rare", entries: [
+        { name: "Valravn", text: "Valravn are supernatural raven-humanoids who congregate in the high-perch rafters of the Fringe and work as assassins or spies. They are not social in the conventional sense." },
+        { name: "Changelings", text: "Changelings wear masks, always, and blend into the Warrens' human population without effort. The Commission has no reliable census data on them. The number listed is an estimate, and almost certainly low." },
+        { name: "Wendigo-kin", text: "Wendigo-kin are tall, antlered, skeletal, and emit a localized frost-aura that slows the Aether around them. They wear heavy furs over gaunt frames and live in the Cold Pockets of the Warrens — sections where failed cooling-runes have left the temperature permanently wrong. They are pariahs or, occasionally, high-ranking members of the Cult of the Hunger. Sometimes both." }
+      ]},
+      { group: "Sundering-Origin Races", entries: [
+        { name: "Witches", text: "Witches are an all-female race, exclusively bisexual or lesbian, short in stature, averaging up to 5'2\". They dress in deep plum-purple mage robes — practical, fire-resistant, and spell-absorptive like the general mage-clothing convention — with a signature element of fine silver thread stitched into small sigil-patterns along the hems, cuffs, and collar, each tied to a specific potion ingredient or protective ward. They use potions, spellbooks, and scrolls rather than innate or blood magic, and are commonly found in the Sanctuary. They served as battle mages and battlefield healers during the Alathia War, and most now run clinics or small magical schools." },
+        { name: "Warlocks", text: "Warlocks are blood-born magic casters, the second-most magically inclined race after Witches. They live on the small islands created by the Sundering, the same geological event that split the old supercontinent into Korrathis's continent and Ashenmoor, and are not part of Karthmore's resident population, though they served as battle mages alongside Witches during the Alathia War." }
+      ]}
+    ]
+  },
+
+  // Peoples not yet in the Registry. Most of the old "under review" list got
+  // filled in by the field guide below — this is what's genuinely still open.
+  unregistered: {
+    heading: "Still under review",
+    intro: "One name on file with nothing behind it yet.",
+    groups: [
+      { realm: "The Outer Realm (Orrethis Heptavane)", peoples: ["Primordials"] }
+    ]
+  },
+
+  sealed: "The Spirit Realm has a name now — Shensora, past its own door. The Outer Realm turned out to be Orrethis Heptavane, a place no visitor survives long enough to describe firsthand. The Primal and Wild Realm's peoples are catalogued below, though the realm itself still has no name on file.",
+
+
+  posts: [
+    { slug: "welcome", title: "The doors are open", date: "2026-09-21",
+      summary: "What the city keeps on file here, and where to start.",
+      body: [
+        "Karthmore has a home on the web. This is where the city keeps its files: the series, the worlds behind the doors, the people registered to live there, and dispatches like this one.",
+        "New pages will turn up as the world gets written down. Some entries are short on purpose. The city keeps its secrets, and so do I."
+      ] },
+    { slug: "three-ways-to-count-a-year", title: "Three worlds, three ways to count a year", date: "2026-09-20",
+      summary: "Two moons, five moons, one moon: how each world keeps time.",
+      body: [
+        "Every world within Karthmore's reach counts time differently, and none of them will concede the point.",
+        "Korrathis keeps a 350-day year: ten months of 35 days, seven-day weeks, five seasons, and two moons, Nyxara and Soltera. By treaty, the rest of the world dates its history by this calendar and calls the count the Dawns.",
+        "Alathia keeps stranger time. Five moons hang in its sky: Thalessiel, Vaelora, Miraeth, Fenlyr, and Aurelith. Its year holds eight months of 36 days, so 288 days in all, and its four seasons are not the same length.",
+        "Krag Doss Ner runs the longest year: 420 days, twelve months of 35 days, five-day weeks, and four seasons. Its one moon, Bronnvar, marks four seasonal festivals, and its months are named for minerals.",
+        "The full comparison sits on the calendar page under Worlds."
+      ] }
+  ]
+};
+/* ==== CONTENT END ==================================================== */
+
+/* ------------------------------------------------------------------
+   Everything below runs the site. You shouldn't need to edit it.
+------------------------------------------------------------------- */
+const $main = document.getElementById('main');
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const paras = a => a.map(p => `<p>${esc(p)}</p>`).join('');
+const planeBy = k => SITE.planes.find(p => p.key === k);
+const cityBy = k => SITE.cities.find(c => c.key === k);
+const citiesOf = k => SITE.cities.filter(c => c.plane === k);
+const asArr = x => Array.isArray(x) ? x : [x];
+
+/* ---- World themes: built from each world's "color" unless it supplies its own ---- */
+function hexToHue(hex){
+  const m = /^#?([0-9a-f]{6})$/i.exec(hex || ''); if (!m) return 40;
+  const n = parseInt(m[1], 16), r = (n >> 16 & 255) / 255, g = (n >> 8 & 255) / 255, b = (n & 255) / 255;
+  const mx = Math.max(r, g, b), d = mx - Math.min(r, g, b); if (!d) return 40;
+  const h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  return Math.round((h * 60 + 360) % 360);
+}
+const hsl = (h, s, l) => `hsl(${h} ${s}% ${l}%)`;
+function planeTheme(p){
+  const v = p.vars || {}, t = p.theme || {}, base = p.color || v.a || '#f0c078', h = hexToHue(base);
+  return {
+    door: { a: v.a || base, bg1: v.bg1 || hsl(h, 35, 14), bg2: v.bg2 || hsl(h, 35, 24) },
+    page: { ink: t.ink || hsl(h, 30, 8), ink2: t.ink2 || hsl(h, 28, 12), ink3: t.ink3 || hsl(h, 26, 18),
+            accent: t.accent || base, accent2: t.accent2 || hsl((h + 45) % 360, 55, 78) }
+  };
+}
+const planeAccent = k => { const p = planeBy(k); return p ? planeTheme(p).door.a : '#f0c078'; };
+function cityTheme(c){ return planeTheme({ color: c.color }); }
+function applyTheme(key, city){
+  const src = city ? cityTheme(city) : (planeBy(key) ? planeTheme(planeBy(key)) : null);
+  const st = document.body.style;
+  const map = { '--ink': 'ink', '--ink-2': 'ink2', '--ink-3': 'ink3', '--accent': 'accent', '--accent-2': 'accent2' };
+  Object.keys(map).forEach(k => src ? st.setProperty(k, src.page[map[k]]) : st.removeProperty(k));
+}
+const moonWord = n => ({1:'One moon',2:'Two moons',3:'Three moons',4:'Four moons',5:'Five moons'}[n] || n + ' moons');
+const fmtDate = d => new Date(d + 'T00:00:00Z').toLocaleDateString('en-US', {timeZone:'UTC', year:'numeric', month:'long', day:'numeric'});
+const postsSorted = () => SITE.posts.slice().sort((a, b) => b.date.localeCompare(a.date));
+
+/* ---- Skyline: generated once from a fixed seed so it never changes ---- */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function skyline(){
+  const rnd = mulberry32(1731), R = (a, b) => a + rnd() * (b - a);
+  const W = 1600, H = 620, f = n => n.toFixed(1);
+  const layers = [
+    { fill:'#34305a', minH:120, maxH:280, minW:60, maxW:130, win:0 },
+    { fill:'#242247', minH:150, maxH:340, minW:50, maxW:120, win:.05 },
+    { fill:'#15162f', minH:110, maxH:400, minW:44, maxW:110, win:.17 }
+  ];
+  let out = '';
+  layers.forEach(L => {
+    let x = -30, body = '', lights = '';
+    while (x < W + 30) {
+      const w = R(L.minW, L.maxW), h = R(L.minH, L.maxH), top = H - h, kind = rnd();
+      body += `<rect x="${f(x)}" y="${f(top)}" width="${f(w)}" height="${f(h)}"/>`;
+      if (kind < .25) {
+        const sh = R(50, 130);
+        body += `<polygon points="${f(x+w*.18)},${f(top)} ${f(x+w*.5)},${f(top-sh)} ${f(x+w*.82)},${f(top)}"/>`;
+      } else if (kind < .42) {
+        body += `<ellipse cx="${f(x+w/2)}" cy="${f(top)}" rx="${f(w*.42)}" ry="${f(R(22,46))}"/>`;
+      } else if (kind < .6) {
+        body += `<rect x="${f(x+w*.2)}" y="${f(top-R(30,70))}" width="${f(w*.6)}" height="90"/>`;
+      } else if (kind < .75) {
+        const cw = R(8, 14), ch = R(50, 120);
+        body += `<rect x="${f(x+w*.65)}" y="${f(top-ch)}" width="${f(cw)}" height="${f(ch+2)}"/>`;
+        body += `<rect x="${f(x+w*.3)}" y="${f(top-ch*.6)}" width="${f(cw*.8)}" height="${f(ch*.6+2)}"/>`;
+      }
+      if (L.win) {
+        const cols = Math.floor((w - 16) / 16), rows = Math.floor((h - 24) / 22);
+        for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+          if (rnd() < L.win) {
+            const col = rnd() < .85 ? '#f0c078' : '#b7b1e8';
+            lights += `<rect x="${f(x+8+c*16)}" y="${f(top+14+r*22)}" width="5" height="8" fill="${col}" opacity="${f(R(.5,1))}"/>`;
+          }
+        }
+      }
+      x += w * R(.6, 1);
+    }
+    out += `<g fill="${L.fill}">${body}</g>${lights}`;
+  });
+  return `<svg class="skyline" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">${out}</svg>`;
+}
+
+/* ---- Views ---- */
+function doorsHTML(){
+  return `<ul class="doors">${SITE.planes.map(p => { const d = planeTheme(p).door; return `
+    <li><a class="door" href="#/worlds/${p.key}" style="--a:${d.a};--bg1:${d.bg1};--bg2:${d.bg2}">
+      <span class="pips" aria-hidden="true">${'<i></i>'.repeat(p.moons)}</span>
+      <h3>${esc(p.name)}</h3>
+      <p class="city">${esc(p.city)}</p>
+      <p class="count">${moonWord(p.moons)}</p>
+      <p class="line">${esc(p.line)}</p>
+    </a></li>`; }).join('')}</ul>`;
+}
+
+const views = {
+  home(){
+    const latest = postsSorted()[0];
+    return { title: '', plane: 'dornalis', html: `
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="glow" aria-hidden="true"></div>
+        <div class="moon nyx" aria-hidden="true"></div>
+        <div class="moon sol" aria-hidden="true"></div>
+        ${skyline()}
+        <div class="wrap hero-copy">
+          <h1 id="hero-title">${esc(SITE.title)}</h1>
+          <p class="say">${esc(SITE.pronunciation)}</p>
+          <p class="lede">${esc(SITE.tagline)}</p>
+          <div class="actions">
+            <a class="btn" href="#/series">Meet the series</a>
+            <a class="btn ghost" href="#/worlds">Explore the worlds</a>
+          </div>
+        </div>
+      </section>
+      <section class="section"><div class="wrap split">
+        <h2>A city on the plane of Dornalis</h2>
+        <div class="prose">${paras(SITE.premise)}</div>
+      </div></section>
+      <section class="section"><div class="wrap">
+        <h2>Doors to other worlds</h2>
+        <p class="lede muted">Every world keeps its own moons and its own calendar. Pick a door.</p>
+        ${doorsHTML()}
+      </div></section>
+      ${latest ? `<section class="section"><div class="wrap">
+        <h2>Latest dispatch</h2>
+        <ul class="post-list"><li>
+          <time datetime="${latest.date}">${fmtDate(latest.date)}</time>
+          <h3><a href="#/dispatches/${latest.slug}">${esc(latest.title)}</a></h3>
+          <p>${esc(latest.summary)}</p>
+        </li></ul>
+        <p><a href="#/dispatches">All dispatches</a></p>
+      </div></section>` : ''}`};
+  },
+
+  series(){
+    return { title: 'The series', plane: 'dornalis', html: `
+      <div class="wrap">
+        <div class="page-head"><h1>The series</h1>
+          <p class="lede">Two series, one city. Start with Evelyn Reed; Corven Cain's story grows out of the same streets.</p></div>
+        <div class="page-body">${SITE.series.map(s => `
+          <article class="series-item">
+            <div>
+              ${s.cover ? `<img src="${esc(s.cover)}" alt="Cover of ${esc(s.title)}">` : ''}
+              <h2>${esc(s.title)}</h2>
+              <p class="kind">${esc(s.kind)}</p>
+              <span class="status">${esc(s.status)}</span>
+            </div>
+            <div class="prose">${paras(s.text)}</div>
+          </article>`).join('')}
+        </div>
+      </div>`};
+  },
+
+  worlds(parts){
+    const [key, sub, subKey] = parts;
+    if (key === 'reference') return views.reference();
+    if (sub === 'city') return views.city(subKey);
+    const [, entry] = parts;
+    const plane = key && planeBy(key);
+    if (!plane) return views.worldsHome();
+    const entries = SITE.lore.filter(e => e.plane === plane.key);
+    const cats = [...new Set(entries.map(e => e.cat))];
+    return { title: plane.name, plane: plane.key, entry, html: `
+      <div class="wrap">
+        <div class="page-head">
+          <a class="back" href="#/worlds">Back to all worlds</a>
+          <h1>${esc(plane.name)}</h1>
+          <p class="lede">${esc(plane.intro)}</p>
+          <p class="plane-facts">${moonWord(plane.moons)}: ${esc(plane.moonNames)}. <a href="#/worlds/reference">Compare the calendars.</a></p>
+          <ul class="index" aria-label="Entries on this page">${entries.map(e => `<li><a href="#/worlds/${plane.key}/${e.id}">${esc(e.name)}</a></li>`).join('')}</ul>
+        </div>
+        <div class="page-body">
+        ${citiesOf(plane.key).length ? `
+          <h2 class="cat">Elsewhere in ${esc(plane.name)}</h2>
+          <ul class="ships">${citiesOf(plane.key).map(c => `
+            <li><a class="ship-card" href="#/worlds/${plane.key}/city/${c.key}" style="--a:${c.color}">
+              <h3>${esc(c.name)}</h3>
+              ${c.ruler ? `<p class="ruler">${esc(c.ruler)}</p>` : ''}
+              <p class="line">${esc(c.tagline)}</p>
+              ${c.travel ? `<p class="travel">${esc(c.travel)}</p>` : ''}
+            </a></li>`).join('')}</ul>` : ''}
+        ${cats.map(c => `
+          <h2 class="cat">${esc(c)}</h2>
+          ${entries.filter(e => e.cat === c).map(e => `
+            <article class="entry" id="e-${e.id}">
+              <h3>${esc(e.name)}${e.pron ? `<span class="say">${esc(e.pron)}</span>` : ''}</h3>
+              ${paras(e.text)}
+              ${e.list ? `<ul>${e.list.map(i => `<li>${esc(i)}</li>`).join('')}</ul>` : ''}
+            </article>`).join('')}`).join('')}
+        </div>
+      </div>`};
+  },
+
+  city(key){
+    const c = cityBy(key);
+    if (!c) return views.notFound();
+    const plane = planeBy(c.plane);
+    return { title: c.name, plane: c.plane, cityColor: c.color, html: `
+      <div class="wrap">
+        <div class="page-head city-head">
+          <a class="back" href="#/worlds/${plane.key}">Back to ${esc(plane.name)}</a>
+          <h1>${esc(c.name)}</h1>
+          ${c.ruler ? `<p class="ruler">${esc(c.ruler)}</p>` : ''}
+          <p class="lede">${esc(c.tagline)}</p>
+          ${c.travel ? `<p class="plane-facts">${esc(c.travel)}</p>` : ''}
+        </div>
+        <div class="page-body">${c.sections.map(sec => `
+          <article class="entry">
+            <h2 class="cat">${esc(sec.h)}</h2>
+            ${sec.text ? paras(sec.text) : ''}
+            ${sec.list ? `<ul>${sec.list.map(i => `<li>${esc(i)}</li>`).join('')}</ul>` : ''}
+          </article>`).join('')}
+        </div>
+      </div>`};
+  },
+
+  worldsHome(){
+    return { title: 'Worlds', plane: 'dornalis', html: `
+      <div class="wrap">
+        <div class="page-head"><h1>Worlds</h1>
+          <p class="lede">Karthmore is one city on one plane, and the city has more doors than it advertises. Pick one, or search for a name.</p>
+          <label class="sr" for="q">Search the worlds</label>
+          <input id="q" class="search" type="search" placeholder="Search a place, a moon, or a name" autocomplete="off">
+          <ul id="results" class="results" aria-live="polite"></ul>
+        </div>
+        <div class="page-body">
+          ${doorsHTML()}
+          <div class="prose sealed"><h2>Sealed files</h2><p>${esc(SITE.sealed)}</p>
+            <p><a href="#/peoples">See who is known to live there</a></p></div>
+          <a class="ref-link" href="#/worlds/reference">Calendars and pronunciation guide</a>
+        </div>
+      </div>`,
+      after(){
+        const q = document.getElementById('q'), out = document.getElementById('results');
+        const pool = SITE.lore.map(e => ({
+            name: e.name, href: `#/worlds/${e.plane}/${e.id}`, where: planeBy(e.plane).name,
+            hay: [e.name, ...e.text, ...(e.list || [])].join(' '), snip: e.text[0]
+          })).concat(SITE.cast.map(c => ({
+            name: c.name, href: '#/characters', where: 'Characters',
+            hay: [c.name, c.kind, c.text].join(' '), snip: c.text
+          }))).concat(SITE.fieldGuide.groups.flatMap(g => g.entries.map(e => ({
+            name: e.name, href: '#/peoples', where: 'Peoples',
+            hay: [e.name, e.text].join(' '), snip: e.text
+          })))).concat(SITE.cities.map(c => ({
+            name: c.name, href: `#/worlds/${c.plane}/city/${c.key}`, where: planeBy(c.plane).name,
+            hay: [c.name, c.tagline, c.travel || '', c.ruler || '', ...c.sections.flatMap(s => [s.h, ...(s.text || []), ...(s.list || [])])].join(' '),
+            snip: c.tagline
+          })));
+        q.addEventListener('input', () => {
+          const raw = q.value.trim(), s = raw.toLowerCase();
+          if (!s) { out.innerHTML = ''; return; }
+          const hits = pool.filter(p => p.hay.toLowerCase().includes(s));
+          out.innerHTML = hits.length
+            ? hits.map(h => `<li><a href="${h.href}">${esc(h.name)}</a><span class="where">${esc(h.where)}</span><p>${esc(h.snip.length > 150 ? h.snip.slice(0, 147) + '...' : h.snip)}</p></li>`).join('')
+            : `<li>Nothing on file matches “${esc(raw)}”. Try a place, a moon, or a character name.</li>`;
+        });
+      }};
+  },
+
+  reference(){
+    const cal = SITE.calendars;
+    const row = (label, key) => `<tr><th scope="row">${label}</th>${cal.map(c => `<td>${esc(c[key])}</td>`).join('')}</tr>`;
+    return { title: 'Calendars and pronunciation', plane: 'dornalis', html: `
+      <div class="wrap">
+        <div class="page-head">
+          <a class="back" href="#/worlds">Back to all worlds</a>
+          <h1>Calendars and pronunciation</h1>
+          <p class="lede">Each world counts time its own way, and a few names are easy to trip over.</p>
+        </div>
+        <div class="page-body">
+          <h2>How each plane counts time</h2>
+          <div class="table-wrap"><table class="cal">
+            <thead><tr><td></td>${cal.map(c => `<th scope="col" style="--pc:${c.color || planeAccent(c.plane)}">${esc(c.label)}</th>`).join('')}</tr></thead>
+            <tbody>
+              ${row('Moons', 'moons')}${row('Week', 'week')}${row('Month', 'month')}${row('Months in a year', 'months')}${row('Year', 'year')}${row('Seasons', 'seasons')}
+            </tbody></table></div>
+          <div class="prose" style="margin-top:1.5rem">${paras(SITE.calendarNotes)}</div>
+
+          <h2 style="margin-top:4rem">How to say it</h2>
+          <ul class="say-list">${SITE.planes.map(p => `
+            <li><span class="name">${esc(p.city)}</span><span class="how">${esc(p.pron)}</span></li>`).join('')}</ul>
+        </div>
+      </div>`};
+  },
+
+  peoples(){
+    const R = SITE.registry, FG = SITE.fieldGuide, U = SITE.unregistered;
+    let ticks = '';
+    for (let i = 0; i < 24; i++) {
+      const a = i * Math.PI / 12, c = Math.cos(a), sn = Math.sin(a);
+      ticks += `<line x1="${(32+c*27).toFixed(1)}" y1="${(32+sn*27).toFixed(1)}" x2="${(32+c*30).toFixed(1)}" y2="${(32+sn*30).toFixed(1)}"/>`;
+    }
+    const seal = `<svg class="seal" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+      <g fill="none" style="stroke:var(--accent)" stroke-width="1.2"><circle cx="32" cy="32" r="30.5"/><circle cx="32" cy="32" r="25"/>${ticks}</g>
+      <circle cx="27" cy="32" r="10" fill="#b7b1e8"/><circle cx="39" cy="31" r="6.5" fill="#f0c078"/></svg>`;
+    return { title: R.title, plane: 'dornalis', html: `
+      <div class="wrap">
+        <div class="page-head">
+          <div class="notice">
+            ${seal}
+            <div>
+              <p class="issuer">${esc(R.issuer)}</p>
+              <h1>${esc(R.title)}</h1>
+              <p class="filed">${esc(R.posted)}</p>
+            </div>
+          </div>
+          <div class="prose notice-intro">${paras(R.intro)}</div>
+        </div>
+        <div class="page-body">
+          <div class="table-wrap"><table class="cal census">
+            <thead><tr><th scope="col">Race</th><th scope="col">% of population</th><th scope="col">Primary district</th><th scope="col">Social class</th></tr></thead>
+            <tbody>${R.census.map(r => `
+              <tr><th scope="row">${esc(r.race)}</th><td>${esc(r.pct)}</td><td>${esc(r.district)}</td><td>${esc(r.cls)}</td></tr>`).join('')}
+            </tbody></table></div>
+          ${R.censusNote ? `<p class="muted census-note">${esc(R.censusNote)}</p>` : ''}
+
+          <h2 class="cat">Economic tiers</h2>
+          <div class="tiers">${R.tiers.map(t => `
+            <article class="tier"><h3>${esc(t.name)}</h3><p class="tier-peoples">${esc(t.peoples)}</p><p>${esc(t.text)}</p></article>`).join('')}
+          </div>
+
+          <div class="fg-head">
+            <h2 class="cat">${esc(FG.label)}</h2>
+            <p class="byline">${esc(FG.byline)}</p>
+          </div>
+          ${FG.groups.map(g => `
+            <h3 class="realm">${esc(g.group)}</h3>
+            <ul class="cast registry">${g.entries.map(e => `
+              <li><div class="who">${esc(e.name)}</div><p>${esc(e.text)}</p></li>`).join('')}
+            </ul>`).join('')}
+
+          ${U && U.groups.some(g => g.peoples.length) ? `
+            <h2 class="cat">${esc(U.heading)}</h2>
+            <div class="prose"><p>${esc(U.intro)}</p></div>
+            ${U.groups.filter(g => g.peoples.length).map(g => `<h3 class="realm">${esc(g.realm)}</h3>
+              <ul class="index">${g.peoples.map(x => `<li>${esc(x)}</li>`).join('')}</ul>`).join('')}` : ''}
+        </div>
+      </div>`};
+  },
+
+  characters(){
+    return { title: 'Characters', plane: 'dornalis', html: `
+      <div class="wrap">
+        <div class="page-head"><h1>Characters</h1>
+          <p class="lede">Faces you'll meet in Karthmore. Some of them will be pleasant.</p></div>
+        <div class="page-body"><ul class="cast">${SITE.cast.map(c => `
+          <li><div class="who">${esc(c.name)}${c.kind ? `<span class="kind">${esc(c.kind)}</span>` : ''}</div><p>${esc(c.text)}</p></li>`).join('')}
+        </ul></div>
+      </div>`};
+  },
+
+  dispatches(parts){
+    const [slug] = parts;
+    if (slug) {
+      const p = SITE.posts.find(x => x.slug === slug);
+      if (!p) return views.notFound();
+      return { title: p.title, plane: 'dornalis', html: `
+        <div class="wrap">
+          <div class="page-head">
+            <a class="back" href="#/dispatches">Back to dispatches</a>
+            <h1>${esc(p.title)}</h1>
+            <p class="meta"><time datetime="${p.date}">${fmtDate(p.date)}</time></p>
+          </div>
+          <div class="page-body prose post-body">${paras(p.body)}</div>
+        </div>`};
+    }
+    return { title: 'Dispatches', plane: 'dornalis', html: `
+      <div class="wrap">
+        <div class="page-head"><h1>Dispatches</h1>
+          <p class="lede">News from the books, new lore as it gets written down, and notes from behind the curtain.</p></div>
+        <div class="page-body"><ul class="post-list">${postsSorted().map(p => `
+          <li><time datetime="${p.date}">${fmtDate(p.date)}</time>
+            <h2><a href="#/dispatches/${p.slug}">${esc(p.title)}</a></h2>
+            <p>${esc(p.summary)}</p></li>`).join('')}
+        </ul></div>
+      </div>`};
+  },
+
+  about(){
+    return { title: 'About', plane: 'dornalis', html: `
+      <div class="wrap">
+        <div class="page-head"><h1>About</h1></div>
+        <div class="page-body">
+          <div class="split">
+            <h2>The author</h2>
+            <div class="prose"><p>${esc(SITE.bio)}</p>
+              ${SITE.links.length ? `<ul>${SITE.links.map(l => `<li><a href="${esc(l.href)}" rel="noopener">${esc(l.label)}</a></li>`).join('')}</ul>` : ''}
+            </div>
+          </div>
+          <div class="split" style="margin-top:3rem">
+            <h2>The series</h2>
+            <div class="prose"><p>Karthmore is one city on the plane of Dornalis, and more than one story. Evelyn Reed's series comes first. A companion series follows Corven Cain, a vampire war veteran who builds an empire on the wrong side of the law.</p>
+              <p><a href="#/series">Read about the series</a></p></div>
+          </div>
+        </div>
+      </div>`};
+  },
+
+  notFound(){
+    return { title: 'Page not found', plane: 'dornalis', html: `
+      <div class="wrap"><div class="page-head"><h1>That page isn't here</h1>
+        <p class="lede">The link may be old or mistyped. Head back to the <a href="#/">home page</a> or browse the <a href="#/worlds">worlds</a>.</p></div></div>`};
+  }
+};
+
+/* ---- Router ---- */
+function render(){
+  const parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean).map(decodeURIComponent);
+  const root = parts[0] || '';
+  const key = ({ lore: 'worlds' })[root] || root;   // old #/lore links still work
+  const routable = ['home','series','worlds','peoples','characters','dispatches','about'];
+  const fn = key === '' ? views.home : (routable.includes(key) ? views[key] : null);
+  const v = fn ? fn(parts.slice(1)) : views.notFound();
+  document.body.dataset.plane = v.plane || 'dornalis';
+  applyTheme(v.plane || 'dornalis', v.cityColor ? { color: v.cityColor } : null);
+  document.title = v.title ? `${v.title} | ${SITE.title}` : `${SITE.title}: ${SITE.tagline}`;
+  $main.innerHTML = v.html;
+  document.querySelectorAll('#nav a').forEach(a => {
+    if (a.dataset.r === key) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+  });
+  if (v.after) v.after();
+  const el = v.entry && document.getElementById('e-' + v.entry);
+  if (el) {
+    requestAnimationFrame(() => { el.scrollIntoView({ behavior: 'instant' }); el.classList.add('flash'); });
+  } else {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+  $main.focus({ preventScroll: true });
+}
+
+/* ---- Chrome (header, footer) ---- */
+document.getElementById('brand').innerHTML =
+  `<svg viewBox="0 0 32 20" aria-hidden="true"><circle cx="12" cy="10" r="9" fill="#b7b1e8"/><circle cx="23" cy="10" r="6" fill="#f0c078"/></svg><span>${esc(SITE.title)}</span>`;
+document.getElementById('nav').innerHTML =
+  SITE.nav.map(n => `<li><a href="${n.href}" data-r="${n.r}">${esc(n.label)}</a></li>`).join('');
+document.getElementById('foot').innerHTML =
+  `<p>© ${new Date().getFullYear()} ${esc(SITE.author)}. All rights reserved.</p>` +
+  (SITE.links.length ? `<ul>${SITE.links.map(l => `<li><a href="${esc(l.href)}" rel="noopener">${esc(l.label)}</a></li>`).join('')}</ul>` : '') +
+  (SITE.build ? `<p class="build">Site build ${esc(SITE.build)}</p>` : '');
+document.querySelector('.skip').addEventListener('click', e => { e.preventDefault(); $main.focus(); });
+
+/* ---- Smooth page changes: fade out, swap, fade the new page in in stages ---- */
+const reduceMotion = () => !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+const sigOf = () => location.hash.replace(/^#\/?/, '').split('/').filter(Boolean).slice(0, 2).join('/');
+let mode = 'first', pending = 0, lastSig = null;
+
+function stagger(){ let i = 0; $main.querySelectorAll('.page-head, .page-body, .section').forEach(el => el.style.setProperty('--i', i++)); }
+function renderIn(){
+  render();
+  $main.classList.remove('leaving');
+  stagger();
+  $main.classList.add('entering');
+  pending = setTimeout(() => $main.classList.remove('entering'), 1400);
+}
+function go(){
+  const sig = sigOf(), same = sig === lastSig, m = mode;
+  lastSig = sig; mode = 'normal'; clearTimeout(pending);
+  if (m === 'first' || same || reduceMotion()) { $main.classList.remove('leaving', 'entering'); render(); return; }
+  if (m === 'portal') { renderIn(); return; }
+  $main.classList.add('leaving');
+  pending = setTimeout(renderIn, 170);
+}
+
+/* ---- The door opens: light fills the screen from the door, then the world fades in ---- */
+let opening = false;
+function enterDoor(a){
+  opening = true;
+  const href = a.getAttribute('href'), r = a.getBoundingClientRect(), vw = window.innerWidth, vh = window.innerHeight, rad = r.width / 2;
+  const from = `inset(${r.top}px ${vw - r.right}px ${vh - r.bottom}px ${r.left}px round ${rad}px ${rad}px 6px 6px)`;
+  const to = 'inset(0px 0px 0px 0px round 0px 0px 0px 0px)';
+  const ov = document.createElement('div');
+  ov.className = 'portal';
+  ov.setAttribute('style', a.getAttribute('style') || '');
+  ov.setAttribute('aria-hidden', 'true');
+  ov.style.clipPath = from;
+  ov.style.opacity = '0';
+  document.body.appendChild(ov);
+  a.classList.add('opening');
+  const done = () => { ov.remove(); a.classList.remove('opening'); opening = false; };
+  ov.animate([
+    { clipPath: from, opacity: 0, easing: 'ease-out' },
+    { clipPath: from, opacity: 1, offset: .22, easing: 'cubic-bezier(.65,0,.2,1)' },
+    { clipPath: to,   opacity: 1 }
+  ], { duration: 900, fill: 'forwards' }).finished.then(() => {
+    mode = 'portal';
+    if (location.hash === href) go(); else location.hash = href;
+    setTimeout(() => {
+      ov.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 700, easing: 'ease', fill: 'forwards' }).finished.then(done, done);
+    }, 140);
+  }, done);
+}
+document.addEventListener('click', e => {
+  const a = e.target.closest && e.target.closest('a.door');
+  if (!a || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || reduceMotion()) return;
+  e.preventDefault();
+  if (!opening) enterDoor(a);
+});
+
+window.addEventListener('hashchange', go);
+go();
+</script>
+</body>
+</html>
